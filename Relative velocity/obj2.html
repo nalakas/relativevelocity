@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Relative Velocity</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script> 
+  
+</head>
+
+<body style="background:#707070">
+
+<div class="container">
+		
+		<div class = "page-header" height="100px" width="1000px" style="background:#c0c0c0">
+		<br><center><font face="chiller"><h1 style="color:#501020"><b>RELATIVE &nbspVELOCITY </b></h1></font></center></br>
+		</div>
+		
+	<div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" 
+                     data-toggle="collapse" 
+                    data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+				
+            </button>
+        </div>
+		
+		
+   <div class="collapse navbar-collapse" style="background:#525245" >
+			  <ul class="nav navbar-nav">
+				<!-- <li><a><button class="btn btn-success"  data-toggle="modal" style="background:#353545"  >case 1.1 </button></a></li> -->
+				<li id="showanimatebtn"></li>
+				<li><a href="#" data-toggle="tooltip" title="click on the river area to add data">Instruction</a></li>
+				
+				<li><a id="menu"></a></li>
+			  </ul>
+	</div>
+	
+	</div>
+	<div class="row">
+        <div class="col-md-4">	<p id="button"></p></div>
+	
+	</div >	
+	<a href="#" data-toggle="tooltip" title="click on the river area to add data">	 
+	<div ><canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"  style="background-color:#d0dee0" data-toggle="modal"  ></canvas> </div> 
+	</a>
+	</br>
+	<div id="resul"> </div> 
+	<script>
+	
+	
+	
+	//calculate  the velocity and other details 
+	
+	
+
+
+
+
+	//draw the object
+	function drawObject(ob,context)
+	{
+	context.beginPath();
+	context.rect(ob.X,ob.Y,10,10);
+	context.fillStyle = '#ff0000';
+	context.fill();
+	}
+	
+	
+	
+	
+
+		//set canvas to animate
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+	  
+	
+		//object position
+		var x=document.getElementById('myCanvas').width/2;
+		var y=document.getElementById('myCanvas').height/2;
+		var ob1  = 
+		{
+		X : x-100,
+		Y : y
+		};
+		
+		var ob2  = 
+		{
+		X : x+100,
+		Y : y
+		};
+		
+		
+		
+			
+		//draw object 
+		drawObject(ob1,context);
+		drawObject(ob2,context);
+	
+
+
+</script>
+
+
+	
+	</div>
+
+
+<div class="modal fade" id="popup"   >
+    <div class="modal-dialog">
+        <div class="modal-content" style="background:#cdcaca">
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       
+                       CLOSE
+                </button>
+                <h4 class="modal-title">
+                    FILL THE DATA
+                </h4>
+            </div>
+            
+            
+            <div class="modal-body">
+                
+                <form   id="form" method="post" name="form"  onsubmit="submitbtnshow();return false;">
+				
+                  <div class="form-group">
+                    <label for="vo">VELOCITY OF OBJECT (ms<sup>-1</sup>)</label>
+                      <input type="number"  class="form-control"
+                      id="vo"  min="10" onchange="confirmbtnshow();"  required/>
+                  </div>
+				  
+				  <div class="form-group">
+				  <label for="rvo">RELATIVE TO</label>
+				  <select class="form-control" id="rvo">
+					<option value="1">RIVER</option>
+					<option value="2">GROUND</option>
+				  </select>
+				  </div>
+				  
+				   <div class="form-group">
+                    <label for="deg">ANTI CLOCKWISE DEGREE FROM THE RIVER EDGE</label>
+                      <input type="number"  class="form-control"
+                      id="deg"  min="10" max="170" onchange="confirmbtnshow();" required/>
+                  </div>
+				  <div class="form-group">
+                    <label for="vr">VELOCITY OF RIVER(ms<sup>-1</sup>)</label>
+                      <input type="number"  class="form-control"
+                      id="vr"  min="0"  onchange="confirmbtnshow();" required/>
+                  </div>
+				  <div class="form-group">
+                    <label for="wr">WIDTH OF RIVER(m)</label>
+                      <input type="number"  class="form-control"
+                      id="wr"  min="100" max="500" onchange="confirmbtnshow();" required/>
+                  </div>
+				  
+				  
+                  
+                  <a id="btn" ></a>
+                  
+                  
+				  <!-- data-dismiss="modal"-->
+                </form> 
+                
+                
+            </div>
+       
+        </div>
+    </div>
+</div>
+<div id="data"></div>
+</body>
+</html>
