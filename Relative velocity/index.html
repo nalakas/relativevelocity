@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <title>Relative Velocity</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,60 +8,72 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/bootstrap.css">
   <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script> 
-  
+  <script src="js/bootstrap.min.js"></script>  
 </head>
 
 <body style="background-image: url('images/left_bg.jpg')">
-
-<div class="container">
-		
+	<div class="container">
 		<div class = "page-header" height="100px" width="1000px" style="background-image: url('images/back_all.jpg')">
-		<br><center><font face="chiller"><h1 style="color:#00ccff"><b>RELATIVE &nbsp VELOCITY </b></h1></font></center></br>
+			<br>
+			<center>
+				<font face="chiller">
+					<h1 style="color:#00ccff"><b>RELATIVE &nbsp VELOCITY </b>
+					</h1>
+				</font>
+			</center>
+			</br>
 		</div>
-		
 	<div class="navbar navbar-inverse">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" 
-                     data-toggle="collapse" 
-                    data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-				
             </button>
         </div>
-		
-		
-   <div class="collapse navbar-collapse" style="background:#525245" >
+		<div class="collapse navbar-collapse" style="background-image: url('images/button.jpg')" >
 			  <ul class="nav navbar-nav">
-				<!-- <li><a><button class="btn btn-success"  data-toggle="modal" style="background:#353545"  >case 1.1 </button></a></li> -->
-				
-				
-				<li id="optionchhg"><a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();"style="background:#353545"  >one object moving </button></a></li>
-				
-				<li><a><button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background:#353545"  >Instruction </button></a></li>
-				<li id="swap"><a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background:#353545"  >switch to two object</button></a></li>
-				
-				<li id="showanimatebtn"></li>
-				
-				<li><a id="menu"></a></li>
+				<li id="optionchhg">
+					<a>
+						<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button.jpg')"  >One object moving 
+						</button>
+					</a>
+				</li>
+				<li>
+					<a>
+						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instruction 
+						</button>
+					</a>
+				</li>
+				<li id="swap">
+					<a>
+						<button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url('images/button.jpg')"  >Switch to two object
+						</button>
+					</a>
+				</li>
+				<li id="showanimatebtn">
+				</li>
+				<li>
+					<a id="menu">
+					</a>
+				</li>
 			  </ul>
-	</div>
-	
+		</div>
 	</div>
 	<div class="row">
-        <div class="col-md-4">	<p id="button"></p></div>
-	
+        <div class="col-md-4">	<p id="button"></p>
+		</div>
 	</div >	
-	
-	<div id="canvschng"><canvas id="myCanvas" height="400px" width="1100px" class="img-responsive" style="background-image: url('images/canvas1.gif')"   ></canvas> </div> 
+	<div id="canvschng">
+		<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive" style="background-image: url('images/canvas1.gif')"   >
+		</canvas>
+	</div> 
 	
 	</br>
-	<div id="resul"> </div> 
+	<div id="resul">
+	</div> 
 	<script>
 	var flag=1;//one for case 1 two for case 2
-	
 	//case 1 varibles
 	var vo;// object  
 	var rvo;// relativity of velocity 
@@ -84,8 +95,7 @@
 	var sh=400;//canvas height
 	var r_deg;//radius of radian
 	var angleInDegrees=180;//drawing arrow in case 1
-	var angleInDegrees2=180;//drawing arrow in case 2 first object
-	var angleInDegrees3=180;//drawing arrow in case 2 second object
+	
 	
 	//case 2 varibles
 	var b1v;//object 1 velocity
@@ -102,32 +112,35 @@
 	var bd2;//distance from start position  object 1 when shortest distance
 	var b1deg2;//bearing of object 1 when shortest distance 
 	var b2deg2;//bearing of object 2 when shortest distance 
+	var angleInDegrees2=180;//drawing arrow in case 2 first object
+	var angleInDegrees3=180;//drawing arrow in case 2 second object
+	var type;//"M" for meet "S" for shortest distance "N" for no shortest distance
 	
-	
-	
-	
-	
+
 	//switch between case 1 and case 2
 	function setflag()
 	{
 		
-			if(flag==1){flag=2;
-			document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
-			document.getElementById("optionchhg").innerHTML='<br><li id="optionchhg"><a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();"style="background:#353545"  >two object moving </button></a></li>';
-			document.getElementById("swap").innerHTML='<br><li><a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background:#353545"  >switch to one object</button></a></li>';
-			animatehide();
-			case2();
+			if(flag==1)
+			{
+				flag=2;
+				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
+				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();" style="background-image: url(\'images/button.jpg\')"  >Two object moving </button></a>';
+				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url(\'images/button.jpg\')"  >Switch to one object</button></a>';
+				animatehide();
+				case2();
+			
 			}
-		else {flag=1;
-			document.getElementById("canvschng").innerHTML='<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas1.gif\')"  ></canvas> </div> ';
-			document.getElementById("optionchhg").innerHTML='</br><li id="optionchhg"><a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();"style="background:#353545"  >one object moving </button></a></li>';
-			document.getElementById("swap").innerHTML='<br><li><a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background:#353545"  >switch to two object</button></a></li>';
-			animatehide();
-			case1();
+		else 
+			{
+				flag=1;
+				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas1.gif\')"  ></canvas> </div> ';
+				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button.jpg\')" >One object moving </button></a>';
+				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag();" style="background-image: url(\'images/button.jpg\')"  >Switch to two object</button></a>';
+				animatehide();
+				case1();
 			}
 	}
-	
-	
 	
 	
 	
@@ -139,19 +152,15 @@ function case1()
 	//set canvas to animate
 		var canvas = document.getElementById('myCanvas');
 		var context = canvas.getContext('2d');
-	  
-	
 		//object position
 		var x=document.getElementById('myCanvas').width/2;
 		var y=document.getElementById('myCanvas').height;
 		var ob  = 
-		{
-		X : x,
-		Y : y
-		};
+			{
+			X : x,
+			Y : y
+			};
 		
-	
-
 		//draw the object
 	this.drawObject=function(ob,context,col)
 	{
@@ -183,52 +192,46 @@ function case1()
 		
 		
 			
-this.arrow=function (){	
-$(function(){
-var canvas=document.getElementById("myCanvas");
-var isDragging=false;
-var ctx=canvas.getContext("2d");
+		this.arrow=function (){	
+		$(function(){
+		var canvas=document.getElementById("myCanvas");
+		var isDragging=false;
+		var ctx=canvas.getContext("2d");
 
 
-var image=document.createElement("img");
-image.onload=function(){
-image.width=10;
-image.height=10;
-drawRotated(angleInDegrees)
-}
+		var image=document.createElement("img");
+		image.onload=function(){
+		image.width=10;
+		image.height=10;
+		drawRotated(angleInDegrees)
+		}
 
-if(document.getElementById("rvo").value==1)image.src="images/ar1.png";
-else image.src="images/ar2.png";
+		if(document.getElementById("rvo").value==1)image.src="images/ar1.png";
+		else image.src="images/ar2.png";
 
-$("#myCanvas").mouseup(function(e){handleMouseUp(e);});
-$("#myCanvas").mousedown(function(e){handleMouseDown(e);});
-$("#myCanvas").mousemove(function(e){handleMouseMove(e);});
+		$("#myCanvas").mouseup(function(e){handleMouseUp(e);});
+		$("#myCanvas").mousedown(function(e){handleMouseDown(e);});
+		$("#myCanvas").mousemove(function(e){handleMouseMove(e);});
 
 
-	function handleMouseDown(e){
-      isDragging=true;
-	  
-    }
+		function handleMouseDown(e){
+		  isDragging=true;
+		  
+		}
 		
-	function handleMouseUp(e){
-      isDragging=false;
-    }
-	
-	function handleMouseMove(e){
-      
+		function handleMouseUp(e){
+		  isDragging=false;
+		}
 		
-		
+		function handleMouseMove(e){
 		//var coords = "X coords: " + x + ", Y coords: " + y;
 		//document.getElementById("demo").innerHTML = coords;
-      if(isDragging){
+		if(isDragging){
 	  
 		//var x = event.clientX;
 		//var y = event.clientY;
 		var rect = canvas.getBoundingClientRect();
-    /*return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };*/
+		
 	
 		//var canvasOffset=$("#myCanvas").offset();
 		//var offsetX=canvasOffset.left;
@@ -238,224 +241,200 @@ $("#myCanvas").mousemove(function(e){handleMouseMove(e);});
 		
 		
 		
-		
-		
 		if((x>450 && x<650)&&(y<canvas.height && y>canvas.height-100))
-			{
-			if(x<550)angleInDegrees=90+(Math.atan((y-canvas.height)/(x-550)))/(Math.PI/180);
-			else angleInDegrees=180-(Math.atan((x-550)/(y-canvas.height)))/(Math.PI/180);
+				{
+				if(x<550)angleInDegrees=90+(Math.atan((y-canvas.height)/(x-550)))/(Math.PI/180);
+				else angleInDegrees=180-(Math.atan((x-550)/(y-canvas.height)))/(Math.PI/180);
 			
-			var coords =270-angleInDegrees;
-			document.getElementById("deg").value=Math.round(coords);
-			drawRotated(angleInDegrees);
+				var coords =270-angleInDegrees;
+				document.getElementById("deg").value=Math.round(coords);
+				drawRotated(angleInDegrees);
+				}
+			
+			}
+		}
+
+
+
+
+			function drawRotated(degrees){
+				ctx.clearRect(500,canvas.height-50,100,100);
+				ctx.save();
+				ctx.translate(550  ,sh ,10,50);
+				ctx.rotate(degrees*Math.PI/180);
+				ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
+				//ctx.moveTo(750,400);
+				//ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
+				ctx.restore();	
+				context.beginPath();
+				
+				context.moveTo(ob.X-5,ob.Y);
+				context.lineTo(ob.X+5,ob.Y);
+				context.lineTo(ob.X+8,ob.Y-10);
+				context.lineTo(ob.X-8,ob.Y-10);
+				
+				context.moveTo(ob.X-5,ob.Y-10);
+				context.lineTo(ob.X+5,ob.Y-10);
+				context.lineTo(ob.X,ob.Y-15);
+			
+			
+				context.fillStyle = '#ff0000';//'#ff0000'
+				context.fill();
+				
+				context.beginPath();
+				context.moveTo(600,canvas.height);///if curve not correct set y=400
+				var angl=document.getElementById("deg").value;
+				context.bezierCurveTo(600,canvas.height,550+(50*Math.cos((Math.PI*(angl))/360)),canvas.height-(50)*Math.sin((Math.PI*(angl))/360),550+(50*Math.cos((Math.PI*(angl))/180)),canvas.height-(50)*Math.sin((Math.PI*(angl))/180));
+				context.stroke();
+				context.font = "15px Arial";
+				context.strokeText(angl,530+(40*Math.cos((Math.PI*(angl))/360)),canvas.height-(30)*Math.sin((Math.PI*(angl))/360));
+
+			}
+		});
+	}
+	
+			this.arrowchng=function()
+			{
+				var ang=document.getElementById("deg").value;
+				if(ang !=null)angleInDegrees=270-ang;
+				else angleInDegrees=180;
+				arrow();
+				
+			}
+	
+	
+			this.cal=function()
+			{
+				vo=parseFloat(document.getElementById("vo").value);
+				rvo=parseFloat(document.getElementById("rvo").value);
+				deg=parseFloat(document.getElementById("deg").value);
+
+				vr=parseFloat(document.getElementById("vr").value);
+				wr=parseFloat(document.getElementById("wr").value);
+				 
+				var vo1=(vo*Math.sin(Math.PI*deg/180));
+				
+				var vo2=(vo*Math.cos(Math.PI*deg/180));
+	//alert(vo+" "+deg+" "+vr+" "+wr);
+				if(rvo==1)
+				{
+				
+				rvog=(Math.sqrt((vo1*vo1)+((vr+vo2)*(vr+vo2)))).toFixed(4);
+				edeg=Math.round(((Math.atan((vo1)/(vr+vo2)))/(Math.PI/180)));
+				cdeg=edeg;
+				//alert(edeg);
+				//alert(vo1+" "+vo2);
+				ct=(wr/(vo*Math.sin(Math.PI*deg/180))).toFixed(4);
+				//dd=Math.round((wr/(vo*Math.sin(Math.PI*deg/180)))*(vr+vo*Math.cos(Math.PI*deg/180)));
+				//alert(vo2+" "+vr);
+				var t= vr;
+				dd=(ct*(vo2+t)).toFixed(4);
+				//alert(ct+"\n"+dd);
+				//alert(t);
+				//document.getElementById("data").innerHTML=a+" "+b+" "+c+" "+d;
+				
+				
+				tvo1=vo1;
+				tvo2=vo2+vr;
+				}
+				else if(rvo==2)
+				{
+				rvor=(Math.sqrt((vo1*vo1)+((vo2-vr)*(vo2-vr)))).toFixed(4);
+				edeg=Math.round(((Math.atan((vo1)/(vo2-vr)))/(Math.PI/180)));
+				cdeg=deg;
+				ct=(wr/vo1).toFixed(4);
+				dd=(vo2*ct).toFixed(4);
+				rvog=vo;
+				tvo1=vo1;
+				tvo2=vo2;
+				
+				//alert(rvor+" "+edeg+" "+" "+ct+" "+dd);
+				}
+				
+				if(tvo1>tvo2)
+				{
+					while(tvo1>5)
+					{
+						tvo1=tvo1/10;
+						tvo2=tvo2/10;
+					}
+					
+				}
+			else{
+					while(tvo2>5)
+					{
+					tvo1=tvo1/10;
+					tvo2=tvo2/10;
+					}
+				}
+	
+			c=(1000*ct*tvo1)/(wr);
+	
+			chng();cl();reset();showdata();move();arrow();ruler();
+	
+	}
+
+
+		
+			this.reset=function()
+			{
+				drawObject(ob,context,'#d0dee0');
+				ob.X=x;
+				ob.Y=y;
+			}
+		
+		
+			
+			this.cl=function()
+			{
+				ob.X=document.getElementById('myCanvas').width/2;
+				x=ob.X;
+				ob.Y=document.getElementById('myCanvas').height;
+				y=ob.Y;
+				drawObject(ob,context);
+				var options=document.getElementById("resul");
 			}
 			
-      }
-    }
-
-
-
-
-function drawRotated(degrees){
-ctx.clearRect(500,canvas.height-50,100,100);
-ctx.save();
-ctx.translate(550  ,sh ,10,50);
-ctx.rotate(degrees*Math.PI/180);
-ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
-//ctx.moveTo(750,400);
-//ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
-	ctx.restore();	
-			context.beginPath();
+			//draw object 
+			arrow();//draw arrow and object initially
+			drawObject(ob,context,'#ff0000');
 			
-			context.moveTo(ob.X-5,ob.Y);
-			context.lineTo(ob.X+5,ob.Y);
-			context.lineTo(ob.X+8,ob.Y-10);
-			context.lineTo(ob.X-8,ob.Y-10);
+			//animate 
 			
-			context.moveTo(ob.X-5,ob.Y-10);
-			context.lineTo(ob.X+5,ob.Y-10);
-			context.lineTo(ob.X,ob.Y-15);
+			this.move=function(){
+			//drawObject(ob,context,'#d0dee0');//clear object
+			drawObject(ob,context,'#00ccff');
+			ob.X=ob.X+tvo2;
+			ob.Y=ob.Y-tvo1;
+			
+			drawObject(ob,context,'#ff0000');
+			
+			//if object reach to corners stop object
+			
+			if(ob.X>=1085 || ob.Y<=15 ||ob.X<=10)
+			{stop();return;}
 			
 			
-			
-			
-			context.fillStyle = '#ff0000';//'#ff0000'
-			context.fill();
-			
-			context.beginPath();
-			context.moveTo(600,canvas.height);///if curve not correct set y=400
-			var angl=document.getElementById("deg").value;
-		context.bezierCurveTo(600,canvas.height,550+(50*Math.cos((Math.PI*(angl))/360)),canvas.height-(50)*Math.sin((Math.PI*(angl))/360),550+(50*Math.cos((Math.PI*(angl))/180)),canvas.height-(50)*Math.sin((Math.PI*(angl))/180));
-		context.stroke();
-		context.font = "15px Arial";
-		context.strokeText(angl,530+(40*Math.cos((Math.PI*(angl))/360)),canvas.height-(30)*Math.sin((Math.PI*(angl))/360));
-
-}
-});
-	}
-	
-	this.arrowchng=function()
-	{
-	var ang=document.getElementById("deg").value;
-	if(ang !=null)angleInDegrees=270-ang;
-	else angleInDegrees=180;
-	arrow();
-	
-	}
-	
-	
-	this.cal=function()
-	{
-	 vo=parseFloat(document.getElementById("vo").value);
-	 rvo=parseFloat(document.getElementById("rvo").value);
-	 deg=parseFloat(document.getElementById("deg").value);
-
-	vr=parseFloat(document.getElementById("vr").value);
-	 wr=parseFloat(document.getElementById("wr").value);
-	 
-	 var vo1=(vo*Math.sin(Math.PI*deg/180));
-	
-	var vo2=(vo*Math.cos(Math.PI*deg/180));
-	//alert(vo+" "+deg+" "+vr+" "+wr);
-	if(rvo==1)
-	{
-	
-	rvog=(Math.sqrt((vo1*vo1)+((vr+vo2)*(vr+vo2)))).toFixed(4);
-	edeg=Math.round(((Math.atan((vo1)/(vr+vo2)))/(Math.PI/180)));
-	cdeg=edeg;
-	//alert(edeg);
-	//alert(vo1+" "+vo2);
-	ct=(wr/(vo*Math.sin(Math.PI*deg/180))).toFixed(4);
-	//dd=Math.round((wr/(vo*Math.sin(Math.PI*deg/180)))*(vr+vo*Math.cos(Math.PI*deg/180)));
-	//alert(vo2+" "+vr);
-	var t= vr;
-	dd=(ct*(vo2+t)).toFixed(4);
-	//alert(ct+"\n"+dd);
-	//alert(t);
-	//document.getElementById("data").innerHTML=a+" "+b+" "+c+" "+d;
-	
-	
-	tvo1=vo1;
-	tvo2=vo2+vr;
-	}
-	else if(rvo==2)
-	{
-	rvor=(Math.sqrt((vo1*vo1)+((vo2-vr)*(vo2-vr)))).toFixed(4);
-	edeg=Math.round(((Math.atan((vo1)/(vo2-vr)))/(Math.PI/180)));
-	cdeg=deg;
-	ct=(wr/vo1).toFixed(4);
-	dd=(vo2*ct).toFixed(4);
-	rvog=vo;
-	tvo1=vo1;
-	tvo2=vo2;
-	
-	//alert(rvor+" "+edeg+" "+" "+ct+" "+dd);
-	
-	
-	}
-	
-	if(tvo1>tvo2)
-	{
-		while(tvo1>5)
-		{
-		tvo1=tvo1/10;
-		tvo2=tvo2/10;
-		}
-		
-	}
-	else{
-		while(tvo2>5)
-		{
-		tvo1=tvo1/10;
-		tvo2=tvo2/10;
-		}
-		
-	}
-	
-	c=(1000*ct*tvo1)/(wr);
-	
-	
-	
-	
-	chng();cl();reset();showdata();move();arrow();ruler();
-	
-	
-	}
-
-
-
-
-	
-	
-	
-	 
-
-
-		
-		
-		this.reset=function()
-		{
-		drawObject(ob,context,'#d0dee0');
-		ob.X=x;
-		ob.Y=y;
-		}
-		
-		
-		
-		this.cl=function()
-		{
-		ob.X=document.getElementById('myCanvas').width/2;
-		x=ob.X;
-		ob.Y=document.getElementById('myCanvas').height;
-		y=ob.Y;
-		drawObject(ob,context);
-		
-		
-		var options=document.getElementById("resul");
-		
-
-		}
-			
-		//draw object 
-		arrow();//draw arrow and object initially
-		drawObject(ob,context,'#ff0000');
-		
-		//animate 
-		
-		this.move=function(){
-		//drawObject(ob,context,'#d0dee0');//clear object
-		drawObject(ob,context,'#00ccff');
-		ob.X=ob.X+tvo2;
-		ob.Y=ob.Y-tvo1;
-		
-		drawObject(ob,context,'#ff0000');
-		
-		//if object reach to corners stop object
-		
-		if(ob.X>=1085 || ob.Y<=15 ||ob.X<=10)
-		{stop();return;}
-		
-		
-		animate = setTimeout(move,c); // call movein 
-		}
+			animate = setTimeout(move,c); // call movein 
+			}
 			
 		//stop animation		
-		this.stop=function(){
-		clearTimeout(animate);
-		showdata();
-		arrow();
-		}
+			this.stop=function(){
+			clearTimeout(animate);
+			showdata();
+			arrow();
+			}
 		
-		this.ruler=function()
-		{
-		var canvas = document.getElementById("myCanvas");
-		var ctx2 = canvas.getContext("2d");
-		ctx2.beginPath();
-				for(var i=300;i<canvas.width-50;i++){
+			this.ruler=function()
+			{
+			var canvas = document.getElementById("myCanvas");
+			var ctx2 = canvas.getContext("2d");
+			ctx2.beginPath();
+				for(var i=300;i<canvas.width-50;i++)
+				{
 					var y=(i%50==0)?10:0;
 					ctx2.moveTo(i,y);
 					ctx2.lineTo(i,5);
-					
 					
 					var x=((i-300)%50==0)?0:10;
 					ctx2.moveTo(x+1080,i-300);
@@ -465,154 +444,149 @@ ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
 				ctx2.lineTo(550,0);
 				ctx2.stroke();
 		
-		var c=document.getElementById("myCanvas");
-		var ctx=c.getContext("2d");
-		ctx.beginPath();
-		ctx.moveTo(750,400);///if curve not correct set y=400
-		
-		ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
-		
-		ctx.stroke();
+				var c=document.getElementById("myCanvas");
+				var ctx=c.getContext("2d");
+				ctx.beginPath();
+				ctx.moveTo(750,400);///if curve not correct set y=400
+				
+				ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
+				
+				ctx.stroke();
 		}
 		
-		this.showdata=function() // show results
-    {
-	
-	if(sh==100)r_deg=50;
-	else r_deg=200;
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    ctx.font = "15px Arial";
-	var scaleval=((wr*550)/(sh*11)).toFixed(3);
-	var scalevalheigh=((wr*100)/(sh*2)).toFixed(3);
+			this.showdata=function() // show results
+		{
+		
+			if(sh==100)r_deg=50;
+			else r_deg=200;
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			ctx.font = "15px Arial";
+			var scaleval=((wr*550)/(sh*11)).toFixed(3);
+			var scalevalheigh=((wr*100)/(sh*2)).toFixed(3);
+			
+			
+			var str="";
+			str=""+scaleval;
+			ctx.strokeText("scaler "+str,800,40);
+			
+			str=scalevalheigh;
+			ctx.strokeText(str,1000,sh/2);
+				if(rvo==1)
+				{
+				str='Velocity Relative To Ground : '
+				+rvog+' ms-1';
+				
+				}
+				else{
+				str='Velocity Relative To River : '
+				+rvor+' ms-1';
+				}
     
+				ctx.strokeText(str,0,75);
     
-    var str="";
-	str=""+scaleval;
-	ctx.strokeText("scaler "+str,800,40);
-	
-	str=scalevalheigh;
-	ctx.strokeText(str,1000,sh/2);
+				if(dd<0)dd2=-dd;
+				else dd2=dd;
+		
 		if(rvo==1)
 		{
-		str='Velocity Relative To Ground : '
-		+rvog+' ms-1';
-		
+			if(edeg>=0)
+			{
+				str ='Degree relative to ground: '
+				+edeg;
+				ctx.strokeText(edeg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
+			}
+			else{
+			cdeg=180+cdeg;
+			str ='Degree Relative to ground: '
+				+(180+edeg);
+				ctx.strokeText(180+edeg,550+(r_deg*Math.cos((Math.PI*(180+edeg))/360)),sh-(r_deg*Math.sin((Math.PI*(180+edeg))/360)));
+			}
 		}
-		else{
-		str='Velocity Relative To River : '
-		+rvor+' ms-1';
-		}
-    
-    ctx.strokeText(str,0,75);
-    
-		if(dd<0)dd2=-dd;
-		else dd2=dd;
-    
-	if(rvo==1)
-	{
+		else
+		{
 		if(edeg>=0)
-		{
-			str ='Degree relative to ground: '
-			+edeg;
-			ctx.strokeText(edeg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
+			{
+				str ='Degree relative to river: '
+				+edeg;
+				ctx.strokeText(deg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
+			}
+			else{
+			str ='Degree Relative to river: '
+				+(180+edeg);
+				ctx.strokeText(deg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
+			}
 		}
-		else{
-		cdeg=180+cdeg;
-		str ='Degree Relative to ground: '
-			+(180+edeg);
-			ctx.strokeText(180+edeg,550+(r_deg*Math.cos((Math.PI*(180+edeg))/360)),sh-(r_deg*Math.sin((Math.PI*(180+edeg))/360)));
-		}
-	}
-	else
-	{
-	if(edeg>=0)
-		{
-			str ='Degree relative to river: '
-			+edeg;
-			ctx.strokeText(deg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
-		}
-		else{
-		str ='Degree Relative to river: '
-			+(180+edeg);
-			ctx.strokeText(deg,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)));
-		}
-	}
-    ctx.strokeText(str,0,60);
+		ctx.strokeText(str,0,60);
     
 		
 		str='Time to reach other end : '
 		+ct+' s';
-     ctx.strokeText(str,0,45);
+		ctx.strokeText(str,0,45);
 		
 		str='Distance of object  from opposite end of starting : '
 		+dd2+' m';
-    ctx.strokeText(str,0,30);
+		ctx.strokeText(str,0,30);
 		
 		str='Distance object swim : '
 		+rvog*ct+' m';
-    ctx.strokeText(str,0,15);
+		ctx.strokeText(str,0,15);
 	
-	str="width "+wr+" m";
-	ctx.strokeText(str,450,sh/2);
-	
+		str="width "+wr+" m";
+		ctx.strokeText(str,450,sh/2);
 	
     }
-	//show confirm button to confirm data
-	this.confirmbtnshow=function()
-	{
-
-			var options = document.getElementById("btn");
-			 options.innerHTML = ' <button id="confirmbtn" class="btn btn-success"  >CONFIRM</button>';
-
-	}
-	//show submit button if entered data is confirmed
-	this.submitbtnshow=function()
-	{
-
-			var options = document.getElementById("btn");
-			 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="(new case1()).animateshow()">OK</button>';
-
-	}
-	
-	this.chng=function()
-	{
-	
-	var edeg1;
-	if(rvo==2)
-	{
-		edeg1=deg;
-		
-	}else
-	{
-		edeg1=edeg;
-		if(edeg<0)edeg1=180+edeg;
-	}
-		if(((edeg1)>10.3 && (edeg1)<36.02732) || ((edeg1)>(180-36.02732) && (edeg1)<(180-10.3)))
+		//show confirm button to confirm data
+		this.confirmbtnshow=function()
 		{
-			document.getElementById('myCanvas').height =100;
-			c=(wr*c)/100;
-			sh=100;
-		}else
-		{
-			document.getElementById('myCanvas').height =400;
-			c=(wr*c)/400;
-			sh=400;
+
+				var options = document.getElementById("btn");
+				 options.innerHTML = ' <button id="confirmbtn" class="btn btn-success"  >CONFIRM</button>';
+
 		}
-		
-		
-	}
-	
-	this.animateshow=function()
-	{
-	document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background:#353545" onclick="(new case1()).cal();">show result </button></a>';
-	}
-	this.animatehide=function()
-	{
-	document.getElementById("showanimatebtn").innerHTML="";
-	}
-	
+		//show submit button if entered data is confirmed
+		this.submitbtnshow=function()
+		{
 
+				var options = document.getElementById("btn");
+				 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="(new case1()).animateshow()">OK</button>';
+
+		}
+	
+			this.chng=function()
+			{
+			
+			var edeg1;
+			if(rvo==2)
+			{
+				edeg1=deg;
+				
+			}else
+			{
+				edeg1=edeg;
+				if(edeg<0)edeg1=180+edeg;
+			}
+				if(((edeg1)>10.3 && (edeg1)<36.02732) || ((edeg1)>(180-36.02732) && (edeg1)<(180-10.3)))
+				{
+					document.getElementById('myCanvas').height =100;
+					c=(wr*c)/100;
+					sh=100;
+				}else
+				{
+					document.getElementById('myCanvas').height =400;
+					c=(wr*c)/400;
+					sh=400;
+				}
+		}
+	
+		this.animateshow=function()
+		{
+		document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background-image: url(\'images/button.jpg\')" onclick="(new case1()).cal();">Show result </button></a>';
+		}
+		this.animatehide=function()
+		{
+		document.getElementById("showanimatebtn").innerHTML="";
+		}
 	
 	}
 	
@@ -621,7 +595,7 @@ ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
 
 	 
 	 function case2()
-{
+	{
 
 		var canvas = document.getElementById('myCanvas2');
 		var context = canvas.getContext('2d');
@@ -674,218 +648,215 @@ ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
 			
 			
 			this.arrow=function (a,bb){	
-$(function(){
-var canvas=document.getElementById("myCanvas2");
-var isDragging=false;
-var ctx=canvas.getContext("2d");
+					$(function(){
+					var canvas=document.getElementById("myCanvas2");
+					var isDragging=false;
+					var ctx=canvas.getContext("2d");
 
 
-var image=document.createElement("img");
-image.onload=function(){
-image.width=10;
-image.height=10;
-drawRotated(a,bb)
-}
+					var image=document.createElement("img");
+					image.onload=function(){
+					image.width=10;
+					image.height=10;
+					drawRotated(a,bb)
+					}
 
- image.src="images/ar2.png";
+					 image.src="images/ar2.png";
 
-$("#myCanvas2").mouseup(function(e){handleMouseUp(e);});
-$("#myCanvas2").mousedown(function(e){handleMouseDown(e);});
-$("#myCanvas2").mousemove(function(e){handleMouseMove(e);});
+					$("#myCanvas2").mouseup(function(e){handleMouseUp(e);});
+					$("#myCanvas2").mousedown(function(e){handleMouseDown(e);});
+					$("#myCanvas2").mousemove(function(e){handleMouseMove(e);});
 
 
-	function handleMouseDown(e){
-      isDragging=true;
-	  
-    }
-		
-	function handleMouseUp(e){
-      isDragging=false;
-    }
-	
-	function handleMouseMove(e){
-      
-		
-      if(isDragging){
-	  
-		var rect = canvas.getBoundingClientRect();
-  
-		var xc = parseInt(e.clientX-rect.left);
-		var yc = parseInt(e.clientY-rect.top);
-		
-		
-		
-		
-		
-		if((xc>bb.X-100 && xc<bb.X+100)&&(yc<bb.Y+100 && yc>bb.Y -100))
-			{
-			if(xc<=bb.X && yc<=bb.Y)
-				{
-				bb.A=90+(Math.atan((bb.Y -yc)/(bb.X-xc)))/(Math.PI/180);//nw
+				function handleMouseDown(e){
+				  isDragging=true;
+				  
+				}
 				
+				function handleMouseUp(e){
+				  isDragging=false;
 				}
 			
-			else if(xc>bb.X && yc<bb.Y)
-				{
-				bb.A=180-(Math.atan((xc-bb.X)/(yc-bb.Y)))/(Math.PI/180);//ne
-				}
-			else if(xc<=bb.X && yc>=bb.Y)
-				{
-				bb.A=90+(Math.atan((bb.Y -yc)/(bb.X-xc)))/(Math.PI/180);//sw
-				}
-			else  
-				{
-				bb.A=360-(Math.atan((xc-bb.X)/(yc-bb.Y)))/(Math.PI/180);//se
-				}
-			
-			
-			var tempangl=bb.A;
-			if(tempangl>=180 )tempangl=tempangl-180;
-			else tempangl=180+tempangl;
-			
-			drawRotated(bb.A,bb);
-			context.font = "15px Arial";
-			context.strokeText(Math.round(tempangl),bb.X,bb.Y);
-			if(bb.N=="1")
-			{
+				function handleMouseMove(e){
+				if(isDragging){
+			  
+				var rect = canvas.getBoundingClientRect();
+		  
+				var xc = parseInt(e.clientX-rect.left);
+				var yc = parseInt(e.clientY-rect.top);
+				if((xc>bb.X-100 && xc<bb.X+100)&&(yc<bb.Y+100 && yc>bb.Y -100))
+					{
+					if(xc<=bb.X && yc<=bb.Y)
+						{
+						bb.A=90+(Math.atan((bb.Y -yc)/(bb.X-xc)))/(Math.PI/180);//nw
+						
+						}
+					
+					else if(xc>bb.X && yc<bb.Y)
+						{
+						bb.A=180-(Math.atan((xc-bb.X)/(yc-bb.Y)))/(Math.PI/180);//ne
+						}
+					else if(xc<=bb.X && yc>=bb.Y)
+						{
+						bb.A=90+(Math.atan((bb.Y -yc)/(bb.X-xc)))/(Math.PI/180);//sw
+						}
+					else  
+						{
+						bb.A=360-(Math.atan((xc-bb.X)/(yc-bb.Y)))/(Math.PI/180);//se
+						}
+					
+					
+				var tempangl=bb.A;
+				if(tempangl>=180 )tempangl=tempangl-180;
+				else tempangl=180+tempangl;
 				
-				document.getElementById("b1deg").value=Math.round(tempangl);
+				drawRotated(bb.A,bb);
+				context.font = "15px Arial";
+				context.strokeText(Math.round(tempangl),bb.X,bb.Y);
+				if(bb.N=="1")
+				{
+					
+					document.getElementById("b1deg").value=Math.round(tempangl);
+				}
+				else if(bb.N=="2")
+				{
+				
+				document.getElementById("b2deg").value=Math.round(tempangl);
+				}
+					
+					
 			}
-			else if(bb.N=="2")
-			{
-			
-			document.getElementById("b2deg").value=Math.round(tempangl);
+					
 			}
-			
-			
-			}
-			
-      }
-    }
+		}
 
 
+			function drawRotated(degrees,bb){
+				ctx.clearRect(bb.X-50,bb.Y-50,100,100);
 
-
-function drawRotated(degrees,bb){
-ctx.clearRect(bb.X-50,bb.Y-50,100,100);
-
-
-ctx.save();
-ctx.translate(bb.X,bb.Y,10,50);
-ctx.rotate(degrees*Math.PI/180);
-ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
-//ctx.moveTo(750,400);
-//ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
-	ctx.restore();
-		//ctx.clearRect(0,0,0,100);
-//ctx.save();
-			//context.beginPath();
-			
-			//context.moveTo(bb.X-5,bb.Y);
-			//context.lineTo(bb.X+5,bb.Y);
-			//context.lineTo(bb.X+8,bb.Y-10);
-		//context.lineTo(bb.X-8,bb.Y-10);
-			drawObject(bb,ctx,'#ff0000');
-			//context.moveTo(bb.X-5,bb.Y-10);
-			//context.lineTo(bb.X+5,bb.Y-10);
-			//context.lineTo(bb.X,bb.Y-15);
-			//context.fillStyle = '#ff0000';//'#ff0000'
-			//context.fill();
-			
-			//context.beginPath();
-			//context.moveTo(600,canvas.height);///if curve not correct set y=400
-			//var angl=document.getElementById("deg").value;
-		//context.bezierCurveTo(600,canvas.height,550+(50*Math.cos((Math.PI*(angl))/360)),canvas.height-(50)*Math.sin((Math.PI*(angl))/360),550+(50*Math.cos((Math.PI*(angl))/180)),canvas.height-(50)*Math.sin((Math.PI*(angl))/180));
-		//context.stroke();
-		
-
-}
-});
+				ctx.save();
+				ctx.translate(bb.X,bb.Y,10,50);
+				ctx.rotate(degrees*Math.PI/180);
+				ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
+				ctx.restore();
+				drawObject(bb,ctx,'#ff0000');
+					
+				}
+			});
 	}
 
 	
-drawObject(b1,context,'#ff0000');
-drawObject(b2,context,'#ff0000');
-//alert(b1.X);
-arrow(b2.A,b2);
-arrow(b1.A,b1);
-//cval.arrow(b2);
+			drawObject(b1,context,'#ff0000');
+			drawObject(b2,context,'#ff0000');
+			//alert(b1.X);
+			arrow(b2.A,b2);
+			arrow(b1.A,b1);
 
-	this.caldata=function() //to cal for case 2
-	{
-	b1v=parseFloat(document.getElementById("b1v").value);
-	b2v=parseFloat(document.getElementById("b2v").value);
-	b1deg=parseFloat(document.getElementById("b1deg").value);
-	b2deg=parseFloat(document.getElementById("b2deg").value);
-	dist=parseFloat(document.getElementById("dist").value);
-	distdeg=parseFloat(document.getElementById("distdeg").value);
-	alert(b1v+" a"+b1deg+" "+b2v+" a"+b2deg+" "+dist+" a"+distdeg);
-	
-	}
+			//cval.arrow(b2);
+
+			this.caldata=function() //to cal for case 2
+			{
+			/*var b1rv;//object 1  velocity relative to object 2
+			var b2rv;//object 2 relative velocity
+			var shortd;//shortest distance if available
+			var time;//time taken to obtain shortest distance
+			var bd1;//distance  from start position of object 1 when shortest distance 
+			var bd2;//distance from start position  object 1 when shortest distance
+			var b1deg2;//bearing of object 1 when shortest distance 
+			var b2deg2;
+			*/
+			
+			b1v=parseFloat(document.getElementById("b1v").value);
+			b2v=parseFloat(document.getElementById("b2v").value);
+			b1deg=parseFloat(document.getElementById("b1deg").value);
+			b2deg=parseFloat(document.getElementById("b2deg").value);
+			dist=parseFloat(document.getElementById("dist").value);
+			distdeg=parseFloat(document.getElementById("distdeg").value);
+			//alert("alert1"+b1v+" a"+b1deg+" "+b2v+" a"+b2deg+" "+dist+" a"+distdeg);
+			
+			
+			var vn1=(b1v*Math.cos((Math.PI*b1deg)/180)).toFixed(3);//boat 1 north
+			var ve1=(b1v*Math.sin((Math.PI*b1deg)/180)).toFixed(3);//boat 1 east
+			
+			var vn2=(b2v*Math.cos((Math.PI*b2deg)/180)).toFixed(3);//boat 2 north
+			var ve2=(b2v*Math.sin((Math.PI*b2deg)/180)).toFixed(3);//boat 2 east
+			//alert("alert2 "+vn1+" "+ve1+" "+vn2+" "+ve2);
+			//b1rv=(Math.sqrt((vn1+vn2)*(vn1+vn2)+(ve1+ve2)*(ve1+ve2))).toFixed(4);
+			b2rv=(Math.sqrt((vn2-vn1)*(vn2-vn1)+(ve2-ve1)*(ve2-ve1))).toFixed(4);
+			
+			
+			
+			var tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
+			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;
+			else if((vn2-vn1)<0) tdeg=180+tdeg;
+			else if((ve2-ve1)<0) tdeg=360+tdeg;
+			
+			//alert(" alet1 "+tdeg);
+			//alert(" alet2 "+distdeg);
+			//alert(" alet3 "+Math.abs(b1deg-tdeg));
+			if(Math.abs(distdeg-tdeg)==180)
+			{
+			time=(dist/b2rv).toFixed(3);
+			type="M";
+			bd1=(dist/b2rv)*b1v;
+			bd2=(dist/b2rv)*b2v;
+			alert("meet"+time+"d1 "+bd1+"d2 "+bd2);
+			
+			}
+			//alert(Math.atan(1/0)/(Math.PI/180));
+			
+			//alert(tdeg);
+			
+			}
 	//caldata();
 
 
 
-
-
-
-
-
-
 			this.animateshow=function()
-		{
-		document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background:#353545" onclick="caldata();" >show result </button></a>';
-		}
-		this.animatehide=function()
-		{
-		document.getElementById("showanimatebtn").innerHTML="";
-		}
+			{
+			document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background-image: url(\'images/button.jpg\')" onclick="caldata();" >Show result </button></a>';
+			}
+			this.animatehide=function()
+			{
+			document.getElementById("showanimatebtn").innerHTML="";
+			}
 		
 			//show confirm button to confirm data
-		this.confirmbtnshow=function()
-		{
+			this.confirmbtnshow=function()
+			{
 
-				var options = document.getElementById("btn2");
-				 options.innerHTML = ' <button id="confirmbtn" class="btn btn-success"  >CONFIRM</button>';
+					var options = document.getElementById("btn2");
+					 options.innerHTML = ' <button id="confirmbtn" class="btn btn-success" onclick="chngarrow2();chngarrow1();" >CONFIRM</button>';
 
-		}
+			}
 		//show submit button if entered data is confirmed
-		this.submitbtnshow=function()
-		{
+			this.submitbtnshow=function()
+			{
 
-				var options = document.getElementById("btn2");
-				 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow()">OK</button>';
+					var options = document.getElementById("btn2");
+					 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow()">OK</button>';
 
-		}
+			}
 		
-		this.chngarrow1=function()
-		{
-		angleInDegrees2=parseFloat(document.getElementById("b1deg").value);
-		if(angleInDegrees2>180)angleInDegrees2=angleInDegrees2-180;
-		else angleInDegrees2=angleInDegrees2+180;
-		arrow(angleInDegrees2,b1);
-
+			this.chngarrow1=function()
+			{
+			angleInDegrees2=parseFloat(document.getElementById("b1deg").value);
+			if(angleInDegrees2>180)angleInDegrees2=angleInDegrees2-180;
+			else angleInDegrees2=angleInDegrees2+180;
+			arrow(angleInDegrees2,b1);
+			}
 		
-		}
-		
-		this.chngarrow2=function()
-		{
-		angleInDegrees3=parseFloat(document.getElementById("b2deg").value);
-		if(angleInDegrees3>180)angleInDegrees3=angleInDegrees3-180;
-		else angleInDegrees3=angleInDegrees3+180;
-		arrow(angleInDegrees3,b2);
-		}
+			this.chngarrow2=function()
+			{
+			angleInDegrees3=parseFloat(document.getElementById("b2deg").value);
+			if(angleInDegrees3>180)angleInDegrees3=angleInDegrees3-180;
+			else angleInDegrees3=angleInDegrees3+180;
+			arrow(angleInDegrees3,b2);
+			}
 
-}
-	 
-	 
-	 
-	 
-
-</script>
-
-
+	}
 	
+	</script>
 	</div>
 
 
@@ -893,33 +864,27 @@ arrow(b1.A,b1);
     <div class="modal-dialog">
         <div class="modal-content" style="background:#cdcaca">
             <div class="modal-header">
-                <button type="button" class="close" 
-                   data-dismiss="modal">
-                       
+                <button type="button" class="close"  data-dismiss="modal">
                        CLOSE
                 </button>
                 <h4 class="modal-title">
                     FILL THE DATA
                 </h4>
             </div>
-            
-            
             <div class="modal-body">
-                
                 <form   id="form" method="post" name="form"  onsubmit="(new case1()).submitbtnshow();return false;">
-				
                   <div class="form-group">
-                    <label for="vo">VELOCITY OF OBJECT (ms<sup>-1</sup>)</label>
-                      <input type="number"  class="form-control"
-                      id="vo"  min="10" onclick="confirmbtnshow();animatehide();"  required/>
+						<label for="vo">VELOCITY OF OBJECT (ms<sup>-1</sup>)
+						</label>
+                      <input type="number"  class="form-control" id="vo"  min="10" onclick="confirmbtnshow();animatehide();"  required/>
                   </div>
 				  
 				  <div class="form-group">
-				  <label for="rvo">RELATIVE TO</label>
-				  <select class="form-control" id="rvo">
-					<option value="1">RIVER</option>
-					<option value="2">GROUND</option>
-				  </select>
+					<label for="rvo">RELATIVE TO</label>
+					<select class="form-control" id="rvo">
+						<option value="1">RIVER</option>
+						<option value="2">GROUND</option>
+					</select>
 				  </div>
 				  
 				   <div class="form-group">
@@ -937,13 +902,8 @@ arrow(b1.A,b1);
                       <input type="number"  class="form-control"
                       id="wr" min="10"  onclick="confirmbtnshow();animatehide();" required/>
                   </div>
-				  
-				  
-                  
                   <a id="btn" ></a>
                   
-                  
-				  <!-- data-dismiss="modal"-->
                 </form> 
                 
                 
@@ -1042,20 +1002,9 @@ arrow(b1.A,b1);
 					</div >
 				</div>
 				  
-				  
-				 
-				  
-				  
-                  
                   <a id="btn2" ></a>
-                  
-                  
-				  <!-- data-dismiss="modal"-->
-                </form> 
-                
-                
+                </form>
             </div>
-       
         </div>
     </div>
 </div>
@@ -1069,17 +1018,13 @@ arrow(b1.A,b1);
     <div class="modal-dialog">
         <div class="modal-content" style="background:#addaca">
             <div class="modal-header">
-                <button type="button" class="close" 
-                   data-dismiss="modal">
-                       
+                <button type="button" class="close"  data-dismiss="modal">
                        CLOSE
                 </button>
                 <h4 class="modal-title">
                     INSTRUCTION
                 </h4>
             </div>
-            
-            
             <div class="modal-body">
                 
                 <form   id="form" method="post" name="form"  onsubmit="return false;">
@@ -1118,10 +1063,6 @@ arrow(b1.A,b1);
 					<img src="images/cap6.png" width="400" height="400"><br><br>
 					</center>
                   </div><br><br>
-					
-				  
-				   
-				  
 				  <div class="form-group">
 				  
 					<center> <label for="ob1" > <font size="6" color="blue"> Object Movement </font></label><br><br>
@@ -1131,9 +1072,6 @@ arrow(b1.A,b1);
                   </div><br><br>
                   
                   <a id="btn" ></a>
-                  
-                  
-				  <!-- data-dismiss="modal"-->
                 </form> 
                 
                 
@@ -1142,9 +1080,6 @@ arrow(b1.A,b1);
         </div>
     </div>
 </div>
-
-
-
 <div id="data"></div>
 </body>
 </html>
