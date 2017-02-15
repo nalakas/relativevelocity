@@ -761,7 +761,7 @@ function case1()
 			var shortd;//shortest distance if available
 			var time;//time taken to obtain shortest distance
 			var bd1;//distance  from start position of object 1 when shortest distance 
-			var bd2;//distance from start position  object 1 when shortest distance
+			var bd2;//distance from start position  object 2 when shortest distance
 			var b1deg2;//bearing of object 1 when shortest distance 
 			var b2deg2;
 			*/
@@ -787,28 +787,195 @@ function case1()
 			
 			
 			var tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
+			//alert(" alet1 "+tdeg);
 			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;
-			else if((vn2-vn1)<0) tdeg=180+tdeg;
-			else if((ve2-ve1)<0) tdeg=360+tdeg;
+			else if((vn2-vn1)==0 && (ve2-ve1)<0){tdeg=270;/*alert(" nn1");*/}
+			else if((ve2-ve1)==0 && (vn2-vn1)<0){tdeg=180;/*alert(" nn2");*/}
+			else if((vn2-vn1)<0 ){tdeg=180+tdeg;/*alert(" nn3");*/}
+			else if((ve2-ve1)<0){tdeg=360+tdeg;/*alert(" nn4");*/}
 			
 			//alert(" alet1 "+tdeg);
 			//alert(" alet2 "+distdeg);
 			//alert(" alet3 "+Math.abs(b1deg-tdeg));
-			if(Math.abs(distdeg-tdeg)==180)
+			if(Math.round(b2rv)==0){type="N";}
+			else
 			{
-			time=(dist/b2rv).toFixed(3);
-			type="M";
-			bd1=(dist/b2rv)*b1v;
-			bd2=(dist/b2rv)*b2v;
-			alert("meet"+time+"d1 "+bd1+"d2 "+bd2);
-			
+				if(Math.abs(distdeg-tdeg)==180)
+				{
+				time=(dist/b2rv).toFixed(3);
+				type="M";
+				bd1=(dist/b2rv)*b1v;
+				bd2=(dist/b2rv)*b2v;
+				alert("meet"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
+				}
+				else
+				{
+					if(distdeg<=90 )
+					{
+						if( (tdeg <=180 && tdeg>=0))
+						{
+							if(tdeg<=90+distdeg)
+							{
+							type="N";
+							//alert("no short1");
+							}
+							else{
+							//alert("short 1");
+							type="S";
+							}
+						}
+						else
+						{
+							if(tdeg>=270+distdeg)
+							{
+							type="N";
+							//alert("no short2");
+							}
+							else{
+							//alert("short 2");
+							type="S";
+							}
+						}
+					
+					}
+					
+					else if(distdeg<=270)
+					{
+						if( (tdeg <=180 && tdeg>=0))
+						{
+							if((tdeg>=distdeg-90) &&(tdeg<=180))
+							{
+							type="N";
+							//alert("no short3");
+							}
+							else{
+							//alert("short 3");
+							type="S";
+							}
+						}
+						else
+						{
+							if(tdeg<=90+distdeg)
+							{
+							type="N";
+							//alert("no short4");
+							}
+							else{
+							//alert("short 4");
+							type="S";
+							}
+						}
+					
+					}
+					else 
+					{
+						if( (tdeg <=180 && tdeg>=0))
+						{
+							if((tdeg<=distdeg-270) )
+							{
+							type="N";
+							//alert("no short5");
+							}
+							else{
+							//alert("short 5");
+							type="S";
+							}
+						}
+						else
+						{
+							if(tdeg>=distdeg-90)
+							{
+							type="N";
+							//alert("no short6");
+							}
+							else{
+							//alert("short 6");
+							type="S";
+							}
+						}
+					}
+					
+					if(type=="S"){
+					bd1=dist*Math.abs(Math.sin(Math.PI*(distdeg-tdeg+180)/180));
+					bd2=dist*Math.abs(Math.cos(Math.PI*(distdeg-tdeg+180)/180));
+					
+					//alert(bd2+" "+bd1);
+					time=Math.round(bd2/b2rv);
+					alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
+							}
+					
+					/*if((distdeg<=90 && ((tdeg <=90+distdeg))) || (distdeg<=90 &&(tdeg=>270+distdeg)))
+					{
+					type="N1";
+					alert("ns1");
+					}
+					else if(distdeg<=270 && ((tdeg <90+distdeg) &&(tdeg>distdeg-90)))
+					{
+					type="N2";
+					}
+					else if(distdeg<360 && ((tdeg <distdeg-270) ||(tdeg>distdeg-90)))
+					{
+					type="N3";
+					}
+					else
+					{
+					type="S";
+					alert("S");
+					}*/
+					
+					
+				}
+				
 			}
+			//alert(type);
+			
 			//alert(Math.atan(1/0)/(Math.PI/180));
 			
 			//alert(tdeg);
 			
+			context.clearRect(0,0,canvas.width,canvas.height);
+			alert(distdeg);
+			b2.X=b1.X+dist*Math.sin((Math.PI*distdeg)/180);
+			b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);
+			alert(b2.X+" "+b2.Y+" "+b1.X+" "+b1.Y);
+			arrow(angleInDegrees3,b2);
+			arrow(angleInDegrees2,b1);
+			move();
+			
 			}
 	//caldata();
+	
+	
+		this.move=function(){
+			//drawObject(b1,context,'#d0dee0');//clear object
+			//drawObject(b2,context,'#d0dee0');//clear object
+			drawObject(b2,context,'#00ccff');
+			drawObject(b1,context,'#00ccff');
+			b1.X=b1.X+10;
+			b1.Y=b1.Y-5;
+			
+			b2.X=b2.X+10;
+			b2.Y=b2.Y-5;
+			
+			drawObject(b1,context,'#ff0000');
+			drawObject(b2,context,'#ff0000');
+			
+			//if object reach to corners stop object
+			
+			if(b1.X>=1085 || b1.Y<=15 ||b1.X<=10 || b2.X>=1085 || b2.Y<=15 || b2.X<=10)
+			{stop();return;}
+			
+			
+			animate = setTimeout(move,10); // call movein 
+			}
+			
+		//stop animation		
+			this.stop=function(){
+			clearTimeout(animate);
+			
+			}
+			
+		
 
 
 
@@ -1032,44 +1199,39 @@ function case1()
                   
 				  
 				  <label for="ob1" > <font size="7" color="red">Object 1</font></label><br>
-				  
 				  <div class="form-group">
 				  
 					<center> <label for="ob1" > <font size="6" color="blue"> Initial Page </font></label><br>
-                    <img src="images/homepage.png" width="400" height="400"></center>
-                  </div><br><br>
+                    <img src="images/img0.png" width="500" height="500"></center>
+					<h4>If you  click "switch to two object" then you can change "one object moving" to "two object moving"  this "switch to two object" button use change for no 1 .</h4><br>
+					
+				  </div><br><br>
 				  
 				   <div class="form-group">
-					<center> <label for="ob1"> <font size="6" color="blue"> Insert data </font></label><br>
-                    <img src="images/cap1.png" width="400" height="400"> <br>
-					<h4>After click the river area you can see this form to insert data</h4><br>
-					<img src="images/cap2.png" width="400" height="400"><br><br>
-					<h4>  Here mention about the "anti clockwise degree" that's ;</h4><br><br>
-					<img src="images/cap3.png" width="400" height="400"><br><br>
+					<center> <label for="ob1"> <font size="6" color="blue"> Insert data  </font></label><br>
+					<h4> After choose one object moving  you can see form to insert data .</h4>
+                    <img src="images/img1.png" width="500" height="500"> <br>
+					<h4> If you click "no 1" you can see this form to insert data.In this form "A" you can file or you can give value using mouse click you can see it in "B".
+					After file the form click the confirm button ,shown  by "no 2".</h4>
 					
 					</center>
 					</div><br><br>
 					
-					<div class="form-group">
+					
+					
 				  
-					<center> <label for="ob1" > <font size="6" color="blue"> Fill Confirmation </font></label><br><br>
-					<h4>After fill the data click the "confirm" box </h4><br><br>
-					
-                    <img src="images/cap4.png" width="400" height="400"><br><br>
-					
-					<h4>Then you can see this form so again click the "ok" box </h4><br><br>
-					<img src="images/cap5.png" width="400" height="400"><br><br>
-					<h4>After click ok you can see this page</h4><br><br>
-					<img src="images/cap6.png" width="400" height="400"><br><br>
-					</center>
-                  </div><br><br>
+				   
+				  
 				  <div class="form-group">
 				  
-					<center> <label for="ob1" > <font size="6" color="blue"> Object Movement </font></label><br><br>
-					<h4>First click show result button then you can see object movement</h4><br><br>
-					 <img src="images/cap6.1.png" width="400" height="400"><br><br>
-                    <img src="images/cap7.png" width="400" height="400"></center>
+					<center> 
+					<label for="ob1" > <font size="6" color="blue"> Object Movement </font></label><br><br>
+					<h4>After confirm the form you can see "show result" button .If you click it you can see all result and object movement.</h4><br>
+					<img src="images/img2.png" width="500" height="500"><br><br>
+					
+					</center>
                   </div><br><br>
+                  
                   
                   <a id="btn" ></a>
                 </form> 
