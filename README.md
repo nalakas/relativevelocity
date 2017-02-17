@@ -22,7 +22,7 @@ we created our project using a/l syllabus.
 
 
 <h4> Tests </h4>
-In here for one object have two cases: 
+ for one object have two cases: 
 	(1)Relative to Ground
 		
 		->		->		->
@@ -46,7 +46,7 @@ In here for one object have two cases:
 			(4)dista of object from opposite end of starting (s) = width of river/sin(alpha)
 			(5)time to reach other end (t) = distance object swim (l)/V(o,r)
 			
-In here for two object have
+ for two object have
 
 			
 			
