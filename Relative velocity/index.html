@@ -116,6 +116,15 @@
 	var angleInDegrees3=180;//drawing arrow in case 2 second object
 	var type;//"M" for meet "S" for shortest distance "N" for no shortest distance
 	
+	//for drawings 
+	var tvb1n;
+	var tvb1e;
+	var tvb2n;
+	var tvb2e;
+	var pix=100;//minimum pixels between objects
+	var reldist1;//relative distance when shortest available
+	var reldist2;//relative distance when shortest available
+	
 
 	//switch between case 1 and case 2
 	function setflag()
@@ -139,6 +148,8 @@
 				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag();" style="background-image: url(\'images/button.jpg\')"  >Switch to two object</button></a>';
 				animatehide();
 				case1();
+				chng();
+				
 			}
 	}
 	
@@ -622,6 +633,8 @@ function case1()
 		A :180,
 		N :"2"
 		};
+		
+		
 		//alert(b1.X+" "+b1.Y);
 		//alert(b2.X+" "+b2.Y);
 		
@@ -641,6 +654,9 @@ function case1()
 			
 			context.fillStyle = col;//'#ff0000'
 			context.fill();
+			
+			context.font = "15px Arial";
+			context.strokeText("ob"+ob.N,ob.X-30,ob.Y);
 			}
 			
 			
@@ -684,7 +700,7 @@ function case1()
 		  
 				var xc = parseInt(e.clientX-rect.left);
 				var yc = parseInt(e.clientY-rect.top);
-				if((xc>bb.X-100 && xc<bb.X+100)&&(yc<bb.Y+100 && yc>bb.Y -100))
+				if((xc>bb.X-50 && xc<bb.X+50)&&(yc<bb.Y+50 && yc>bb.Y -50))
 					{
 					if(xc<=bb.X && yc<=bb.Y)
 						{
@@ -709,8 +725,10 @@ function case1()
 				var tempangl=bb.A;
 				if(tempangl>=180 )tempangl=tempangl-180;
 				else tempangl=180+tempangl;
-				
+				//drawObject(b1,context,'#ff0000');
+				//drawObject(b2,context,'#ff0000');
 				drawRotated(bb.A,bb);
+				
 				context.font = "15px Arial";
 				context.strokeText(Math.round(tempangl),bb.X,bb.Y);
 				if(bb.N=="1")
@@ -756,15 +774,6 @@ function case1()
 
 			this.caldata=function() //to cal for case 2
 			{
-			/*var b1rv;//object 1  velocity relative to object 2
-			var b2rv;//object 2 relative velocity
-			var shortd;//shortest distance if available
-			var time;//time taken to obtain shortest distance
-			var bd1;//distance  from start position of object 1 when shortest distance 
-			var bd2;//distance from start position  object 2 when shortest distance
-			var b1deg2;//bearing of object 1 when shortest distance 
-			var b2deg2;
-			*/
 			
 			b1v=parseFloat(document.getElementById("b1v").value);
 			b2v=parseFloat(document.getElementById("b2v").value);
@@ -780,6 +789,12 @@ function case1()
 			
 			var vn2=(b2v*Math.cos((Math.PI*b2deg)/180)).toFixed(3);//boat 2 north
 			var ve2=(b2v*Math.sin((Math.PI*b2deg)/180)).toFixed(3);//boat 2 east
+			
+			tvb1n=vn1;//to drawings
+			tvb1e=ve1;
+			tvb2n=vn2;
+			tvb2e=ve2;
+			
 			//alert("alert2 "+vn1+" "+ve1+" "+vn2+" "+ve2);
 			//b1rv=(Math.sqrt((vn1+vn2)*(vn1+vn2)+(ve1+ve2)*(ve1+ve2))).toFixed(4);
 			b2rv=(Math.sqrt((vn2-vn1)*(vn2-vn1)+(ve2-ve1)*(ve2-ve1))).toFixed(4);
@@ -788,7 +803,7 @@ function case1()
 			
 			var tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
 			//alert(" alet1 "+tdeg);
-			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;
+			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;//
 			else if((vn2-vn1)==0 && (ve2-ve1)<0){tdeg=270;/*alert(" nn1");*/}
 			else if((ve2-ve1)==0 && (vn2-vn1)<0){tdeg=180;/*alert(" nn2");*/}
 			else if((vn2-vn1)<0 ){tdeg=180+tdeg;/*alert(" nn3");*/}
@@ -896,12 +911,16 @@ function case1()
 					}
 					
 					if(type=="S"){
-					bd1=dist*Math.abs(Math.sin(Math.PI*(distdeg-tdeg+180)/180));
-					bd2=dist*Math.abs(Math.cos(Math.PI*(distdeg-tdeg+180)/180));
+					reldist1=dist*Math.abs(Math.sin(Math.PI*(distdeg-tdeg+180)/180));
+					reldist2=dist*Math.abs(Math.cos(Math.PI*(distdeg-tdeg+180)/180));
+					
 					
 					//alert(bd2+" "+bd1);
-					time=Math.round(bd2/b2rv);
-					alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
+					time=(reldist2/b2rv).toFixed(3);
+					bd1=b1v*time;
+					bd2=b2v*time;
+					alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+reldist1);
+					
 							}
 					
 					/*if((distdeg<=90 && ((tdeg <=90+distdeg))) || (distdeg<=90 &&(tdeg=>270+distdeg)))
@@ -933,45 +952,250 @@ function case1()
 			
 			//alert(tdeg);
 			
+			//context.clearRect(0,0,canvas.width,canvas.height);
+			//alert(distdeg);
+			//b2.X=b1.X+dist*Math.sin((Math.PI*distdeg)/180);
+			//b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);
+			//alert(b2.X+" "+b2.Y+" "+b1.X+" "+b1.Y);
+			//arrow(angleInDegrees3,b2);
+			//arrow(angleInDegrees2,b1);
+			taketostart();
+			setvariables();
+			
+			
+			}
+			
+			
+			this.setvariables=function()
+			{
+			//alert("d1  "+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
+			var m=Math.abs(tvb1n);
+			//alert("max1 "+m);
+			if(m<Math.abs(tvb1e)){m=Math.abs(tvb1e);}
+			if(m<Math.abs(tvb2n)){m=Math.abs(tvb2n);}
+			if(m<Math.abs(tvb2e)){m=Math.abs(tvb2e);}
+			
+			//alert("max2 "+m);
+			while(m>5)
+			{
+				m=m/10.0;
+				tvb1n=tvb1n/10.0;
+				tvb1e=tvb1e/10.0;
+				tvb2n=tvb2n/10.0;
+				tvb2e=tvb2e/10.0;
+			}
+			//alert("d"+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
+			//alert("max"+m);
+			//drawObject(b2,context,'#00ccff');
+			//drawObject(b1,context,'#00ccff');
+			
+			//move2();
+			}
+			
+			
+			
+			this.taketostart=function()
+			{
 			context.clearRect(0,0,canvas.width,canvas.height);
-			alert(distdeg);
+			/*b1.X=x1;
+			b1.Y=y1;
+			//context.clearRect(0,0,canvas.width,canvas.height);
 			b2.X=b1.X+dist*Math.sin((Math.PI*distdeg)/180);
-			b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);
-			alert(b2.X+" "+b2.Y+" "+b1.X+" "+b1.Y);
-			arrow(angleInDegrees3,b2);
-			arrow(angleInDegrees2,b1);
-			move();
+			b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);*/
+			
+			if(type=="N")
+			{
+				b1.X=550-50*Math.sin(Math.PI*(distdeg)/180);
+				b1.Y=200+50*Math.cos(Math.PI*(distdeg)/180);
+				b2.X=550+50*Math.sin(Math.PI*(distdeg)/180);
+				b2.Y=200-50*Math.cos(Math.PI*(distdeg)/180);
+				alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
+			drawObject(b1,context,'#ff0000');
+			drawObject(b2,context,'#ff0000');
+			}
+			else
+			{
+			
+			
+				
+				
+			var x01=0;
+			var y01=0;
+			
+			var x02=x01+dist*Math.sin(Math.PI*(distdeg)/180);
+			var y02=y01-dist*Math.cos(Math.PI*(distdeg)/180);
+			
+			var x03=x02+bd2*Math.sin(Math.PI*(b2deg)/180);
+			var y03=y02-bd2*Math.cos(Math.PI*(b2deg)/180);
+			
+			var x04=x01+bd1*Math.sin(Math.PI*(b1deg)/180);
+			var y04=y01-bd1*Math.cos(Math.PI*(b1deg)/180);
+			
+			var xmin=x01;
+			var xmax=x01;
+			var ymin=y01;
+			var ymax=y01;
+			
+				
+			
+				if(xmin>x02){xmin=x02;}
+				if(xmin>x03){xmin=x03;}
+				if(xmin>x04){xmin=x04;}
+				
+				if(ymin>y02){ymin=y02;}
+				if(ymin>y03){ymin=y03;}
+				if(ymin>y04){ymin=y04;}
+				
+				if(xmax<x02){xmax=x02;}
+				if(xmax<x03){xmax=x03;}
+				if(xmax<x04){xmax=x04;}
+				
+				if(ymax<y02){ymax=y02;}
+				if(ymax<y03){ymax=y03;}
+				if(ymax<y04){ymax=y04;}
+				
+				alert("done"+x01+" "+x02+" "+x03+" "+x04+" m"+xmax+" "+xmin);
+				alert("done"+y01+" "+y02+" "+y03+" "+y04+" m"+ymax+" "+ymin);
+				if(((Math.abs(xmax-xmin)/1000)<=dist/pix) &&((Math.abs(ymax-ymin)/300)<=dist/pix))
+				{
+					while(((Math.abs(xmax-xmin)/1050)<=dist/pix) &&((Math.abs(ymax-ymin)/350)<=dist/pix))
+					{
+						pix=pix+100;
+						
+					}
+					pix=pix-100;
+					
+					x02=x02*pix/dist; y02=y02*pix/dist;
+					x01=x01*pix/dist; y01=y01*pix/dist;
+					x03=x03*pix/dist; y03=y03*pix/dist;
+					x04=x04*pix/dist; y04=y04*pix/dist;
+					
+					xmin=xmin*pix/dist; ymin=ymin*pix/dist;
+					xmax=xmax*pix/dist; ymax=ymax*pix/dist;
+					
+					x02=25+x02-(xmin); x01=25+x01-(xmin);x03=25+x03-(xmin); x04=25+x04-(xmin);
+					y02=25-ymin+y02; y01=25-ymin+y01;y03=25-ymin+y03; y04=25-ymin+y04;
+					
+					b1.X=x01;
+					b1.Y=y01;
+					b2.X=x02;
+					b2.Y=y02;
+					
+						var b3  = 
+						{
+						X : x03,
+						Y : y03,
+						A :180,
+						N :"3"
+						};
+						
+						var b4  = 
+						{
+						X : x04,
+						Y : y04,
+						A :180,
+						N :"4"
+						};
+					drawObject(b1,context,'#ff0000');
+					drawObject(b2,context,'#ff0000');
+					drawObject(b3,context,'#ff0000');
+					drawObject(b4,context,'#ff0000');
+					
+					
+				}
+				else
+				{
+				
+				
+					
+					x02=x02*pix/dist; y02=y02*pix/dist;
+					x01=x01*pix/dist; y01=y01*pix/dist;
+					x03=x03*pix/dist; y03=y03*pix/dist;
+					x04=x04*pix/dist; y04=y04*pix/dist;
+					
+					xmin=xmin*pix/dist; ymin=ymin*pix/dist;
+					xmax=xmax*pix/dist; ymax=ymax*pix/dist;
+					
+					x02=25+x02-(xmin); x01=25+x01-(xmin);x03=25+x03-(xmin); x04=25+x04-(xmin);
+					y02=25-ymin+y02; y01=25-ymin+y01;y03=25-ymin+y03; y04=25-ymin+y04;
+					
+					var xmin2=x01;
+					var ymin2=y01;
+					
+					if(x02<xmin2){xmin2=x02;}
+					if(y02<ymin2){ymin2=y02;}
+					
+					x02=x02-(xmin2); x01=x01-(xmin2);x03=x03-(xmin2); x04=x04-(xmin2);
+					y02=-ymin2+y02; y01=-ymin2+y01;y03=-ymin2+y03; y04=-ymin2+y04;
+					
+					
+					
+					b1.X=x01;
+					b1.Y=y01;
+					b2.X=x02;
+					b2.Y=y02;
+					
+						var b3  = 
+						{
+						X : x03,
+						Y : y03,
+						A :180,
+						N :"3"
+						};
+						
+						var b4  = 
+						{
+						X : x04,
+						Y : y04,
+						A :180,
+						N :"4"
+						};
+					drawObject(b1,context,'#ff0000');
+					drawObject(b2,context,'#ff0000');
+					drawObject(b3,context,'#ff0000');
+					drawObject(b4,context,'#ff0000');
+					
+				
+				}
+				
+				
+				
+			}
+			
+			
 			
 			}
 	//caldata();
 	
 	
-		this.move=function(){
+		this.move2=function(){
 			//drawObject(b1,context,'#d0dee0');//clear object
 			//drawObject(b2,context,'#d0dee0');//clear object
 			drawObject(b2,context,'#00ccff');
 			drawObject(b1,context,'#00ccff');
-			b1.X=b1.X+10;
-			b1.Y=b1.Y-5;
+			//alert("data"+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
+			b1.X=b1.X+(tvb1e);
+			b1.Y=b1.Y-(tvb1n);
 			
-			b2.X=b2.X+10;
-			b2.Y=b2.Y-5;
+			b2.X=b2.X+(tvb2e);
+			b2.Y=b2.Y-(tvb2n);
 			
 			drawObject(b1,context,'#ff0000');
 			drawObject(b2,context,'#ff0000');
 			
 			//if object reach to corners stop object
 			
-			if(b1.X>=1085 || b1.Y<=15 ||b1.X<=10 || b2.X>=1085 || b2.Y<=15 || b2.X<=10)
+			if(b1.X>=1085 || b1.Y<=15 ||b1.Y >390||b1.X<=10 || b2.X>=1085 || b2.Y<=15 || b2.X<=10 || b2.Y>390)
 			{stop();return;}
+		//	alert("in");
 			
-			
-			animate = setTimeout(move,10); // call movein 
+			animate = setTimeout(move2,50); // call movein 
 			}
 			
 		//stop animation		
 			this.stop=function(){
 			clearTimeout(animate);
+			taketostart();
 			
 			}
 			
