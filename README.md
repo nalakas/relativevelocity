@@ -16,7 +16,7 @@ we created our project as a our 3rd year projet.here evry one week we doing our 
 we created our project using a/l syllabus.
 
 <h4> Installation </h4>
-Download the relative velocity older and run the index.html with your browser.then you can start simulation or start simulation online with following link
+Download the relative velocity folder and run the index .html with your browser.then you can start simulation or start simulation online with following link
 <h4><a href="Relative velocity/index.html">Start Simulation Here</a></h4>
 
 <h4> API Reference </h4>
