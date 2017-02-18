@@ -18,9 +18,10 @@ Click on the instruction button to know how to give data for simulation.
 
 
 <h4> Tests </h4>
- for one object case object can have two chances for velocity: 
-	(1)Velocity Relative to Ground
-	(2)Velocity to river
+ for one object case object can have two chances for velocity: <br>
+	(1)Velocity Relative to Ground<br>
+	(2)Velocity to river<br>
+	
 		->	->	->
 		V(o,r)=V(o,g)+V(r,g)
 		
