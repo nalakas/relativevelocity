@@ -1,61 +1,67 @@
 # RELATIVE VELOCITY
 <h4> Synopsis about our project </h4>
 
-We are developing a project for relative velocity experiment simulation.
-It will be like,if we give details about one or two objects then here find relative velocity and show above object movement.
-This project most important to advance level students for their studies.
-Here we used jquery and bootstrap packages , in languages we used html and javascript.
+We are developing a project for relative velocity experiment simulation.If we give details which we have about one or two objects 
+then here find relative velocity and show above object movement.This project most important to students for their studies.relavant
+to this simulations shown in the project there are problems in finding relative velocity(mechanics in Physics and in aplied mathamatics).
+Also lecturer can use this simulation to give lectures
 
-<h4> examples for codeing </h4>
+we used jquery,bootstrap, html,css and javascript.
 
+<h4> Getting started </h4>
 
+this can use online or download the relative velocity folder and run the index.html file on your browser.
+Click on the instruction button to know how to give data for simulation.
 
-<h4> Motivation </h4>
+<h4><a href="Relative velocity/index.html">Start Simulation Here</a> </h4>
 
-we created our project as a our 3rd year projet.here evry one week we doing our updates and our aim to help a/l students.
-we created our project using a/l syllabus.
-
-<h4> Installation </h4>
-Download the relative velocity folder and run the index .html with your browser.then you can start simulation or start simulation online with following link
-<h4><a href="Relative velocity/index.html">Start Simulation Here</a></h4>
-
-<h4> API Reference </h4>
 
 
 <h4> Tests </h4>
- for one object have two cases: 
-	(1)Relative to Ground
+ for one object case object can have two chances for velocity: 
+	(1)Velocity Relative to Ground
+	(2)Velocity to river
+		->	->	->
+		V(o,r)=V(o,g)+V(r,g)
 		
-		->		->		->
-		V(o,r)=V(o,g)+V(g,r)
-		
-		using this formula we can find 
-			(1)object relative velocity to river (V(o,r)) 
-			(2)degree relative to river (alpha)
-			(3)distance object swim (l) = width of river/cos(alpha)
-			(4)dista of object from opposite end of starting (s) = width of river/sin(alpha)
-			(5)time to reach other end (t) = distance object swim (l)/V(o,r)
-	
-	(2)Relative to river
-		
+		->	->	->
 		V(o,g)=V(o,r)+V(r,g)
 		
-		using this formula we can find 
-			(1)object relative velocity to river (V(o,g)) 
-			(2)degree relative to river (alpha)
-			(3)distance object swim (l) = width of river/cos(alpha)
-			(4)dista of object from opposite end of starting (s) = width of river/sin(alpha)
-			(5)time to reach other end (t) = distance object swim (l)/V(o,r)
+	 we find the details which is not given when either of above case occur.
+			(1)object relative velocity to river
+			(2)object relative velocity to ground
+			(3)degree relative to river
+			(4)distance object swim when pass the river
+			(5)distance of object from "opposite end of starting" to end position 
+			(6)time to reach other end
+	
+
 			
- for two object have
+ 	two object have velocities for objects and starting distance.That case find the following details
+			(1)having shortest distance or not
+			(2)if the objects are meeting 
+			(3)if meeting or have shortest distance time taken to that situation
+			(4)relative velocities  relative to other object
+			(5)bearing
+
+
+
+<h4> Contributing</h4>
+
+Thanks for your interest in contributing to Relative velocity!
+There are many ways to contribute. To get started, take a look at CONTRIBUTING.docx ,Developer.docx.
+
+Participation Guidelines
+
+This project adheres to a CODE_OF_CONDUCT.md 
+By participating, you are expected to uphold this code. Please report unacceptable behavior to relativevelocity001@gmail.com
 
 			
 			
 <h4> Contributors </h4>
-G.I.H. Nalaka Senarathna
-M.N. Sandaruwan Fernando
-Inoka Rasanjalee
-Deshani Hansamali
+G.I.H. Nalaka Senarathna<br>
+M.N. Sandaruwan Fernando<br>
+Inoka Rasanjalee<br>
+Deshani Hansamali<br>
 
-<h4> License </h4>
- this is under MIT License
+
