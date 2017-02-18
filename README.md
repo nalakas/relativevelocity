@@ -37,7 +37,7 @@ Download the relative velocity folder and run the index .html with your browser.
 			(5)time to reach other end (t) = distance object swim (l)/V(o,r)
 	
 	(2)Relative to river
-		->		->		->
+		
 		V(o,g)=V(o,r)+V(r,g)
 		
 		using this formula we can find 
