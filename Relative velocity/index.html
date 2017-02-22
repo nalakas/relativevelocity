@@ -35,7 +35,7 @@
 			  <ul class="nav navbar-nav" style="float:left;">
 				<li id="optionchhg">
 					<a>
-						<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button.jpg')"  >One object moving 
+						<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button2.jpg')"  >Insert Data 
 						</button>
 					</a>
 				</li>
@@ -46,14 +46,16 @@
 						</button>
 					</a>
 				</li>
-				<li id="showanimatebtn">
-				</li>
+				
 				<li>
 					<a id="menu">
 					</a>
 				</li>
 				</ul>
+				<a id="showanimatebtn" >
+				</a>
 				<ul class="nav navbar-nav" style="float:right;">
+				
 				<li>
 					<a>
 						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instruction 
@@ -128,7 +130,7 @@
 	var pix=100;//minimum pixels between objects
 	var reldist1;//relative distance when shortest available
 	var reldist2;//relative distance when shortest available
-	var state=1;
+	//var state=1;
 	
 
 	//switch between case 1 and case 2
@@ -139,10 +141,10 @@
 			{
 				flag=2;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
-				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();stop();" style="background-image: url(\'images/button.jpg\')"  >Two object moving </button></a>';
+				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();stop();" style="background-image: url(\'images/button2.jpg\')"  >Two object moving </button></a>';
 				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url(\'images/button.jpg\')"  >Switch to one object</button></a>';
 				animatehide();
-				state=1;
+				//state=1;
 				case2();
 			
 			}
@@ -150,7 +152,7 @@
 			{
 				flag=1;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas1.gif\')"  ></canvas> </div> ';
-				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button.jpg\')" >One object moving </button></a>';
+				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')" >One object moving </button></a>';
 				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag();" style="background-image: url(\'images/button.jpg\')"  >Switch to two object</button></a>';
 				animatehide();
 				case1();
@@ -598,7 +600,7 @@ function case1()
 	
 		this.animateshow=function()
 		{
-		document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background-image: url(\'images/button.jpg\')" onclick="(new case1()).cal();">Show result </button></a>';
+		document.getElementById("showanimatebtn").innerHTML='<a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"   onclick="(new case1()).cal();"></a>';
 		}
 		this.animatehide=function()
 		{
@@ -639,7 +641,7 @@ function case1()
 		Y : y2,
 		A :180,
 		N :"2",
-		C :'#ddff00'
+		C :'#752550'
 		};
 		
 		var b5  = 
@@ -657,7 +659,7 @@ function case1()
 		Y : y2,
 		A :180,
 		N :"6",
-		C :'#ddff00'
+		C :'#752550'
 		};
 		
 		
@@ -723,8 +725,8 @@ function case1()
 				}
 			
 				function handleMouseMove(e){
-				if(isDragging && (state==1) && (bb.N=="1" || bb.N=="2")){
-			  
+				if(isDragging  && (bb.N=="1" || bb.N=="2")){
+				//&& (state==1)
 				var rect = canvas.getBoundingClientRect();
 		  
 				var xc = parseInt(e.clientX-rect.left);
@@ -950,6 +952,7 @@ function case1()
 					bd2=b2v*time;
 					alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+reldist1);
 					
+					shortd=reldist1;
 							}
 					
 					/*if((distdeg<=90 && ((tdeg <=90+distdeg))) || (distdeg<=90 &&(tdeg=>270+distdeg)))
@@ -1043,8 +1046,12 @@ function case1()
 				b6.X=550+50*Math.sin(Math.PI*(distdeg)/180);
 				b6.Y=200-50*Math.cos(Math.PI*(distdeg)/180);
 				
-				drawObject(b1,context,b1.C);
-				drawObject(b2,context,b2.C);
+						//arrow(b1.A,b1);
+						//arrow(b2.A,b2);
+						chngarrow1();
+						chngarrow2();
+				//drawObject(b1,context,b1.C);
+				//drawObject(b2,context,b2.C);
 				alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
 			//drawObject(b1,context,b1.C);
 			//drawObject(b2,context,b2.C);
@@ -1142,9 +1149,12 @@ function case1()
 						b5.Y=y01;
 						b6.X=x02;
 						b6.Y=y02;
-						
-					drawObject(b1,context,b1.C);
-					drawObject(b2,context,b2.C);
+						chngarrow1();
+						chngarrow2();
+						//arrow(b1.A,b1);
+						//arrow(b2.A,b2);
+					//drawObject(b1,context,b1.C);
+					//drawObject(b2,context,b2.C);
 					drawObject(b3,context,'#ff0000');
 					drawObject(b4,context,'#ff0000');
 					
@@ -1213,8 +1223,13 @@ function case1()
 						b5.Y=y01;
 						b6.X=x02;
 						b6.Y=y02;
-					drawObject(b1,context,b1.C);
-					drawObject(b2,context,b2.C);
+						
+						//arrow(b1.A,b1);
+						//arrow(b2.A,b2);
+						chngarrow1();
+						chngarrow2();
+					//drawObject(b1,context,b1.C);
+					//drawObject(b2,context,b2.C);
 					drawObject(b3,context,'#ff0000');
 					drawObject(b4,context,'#ff0000');
 					
@@ -1232,7 +1247,7 @@ function case1()
 	
 	
 		this.move2=function(){
-			state=2;
+			//state=2;
 			//drawObject(b1,context,'#d0dee0');//clear object
 			//drawObject(b2,context,'#d0dee0');//clear object
 			drawObject(b5,context,'#00ccff');
@@ -1244,8 +1259,9 @@ function case1()
 			b6.X=b6.X+(tvb2e);
 			b6.Y=b6.Y-(tvb2n);
 			
-			drawObject(b5,context,b1.C);
-			drawObject(b6,context,b2.C);
+			
+			drawObject(b5,context,b5.C);
+			drawObject(b6,context,b6.C);
 		
 			//if object reach to corners stop object
 			
@@ -1253,13 +1269,17 @@ function case1()
 			{stop();return;}
 		//	alert("in");
 			
-			animate = setTimeout(move2,50); // call movein 
+			animate = setTimeout(move2,10); // call movein 
 			}
 			
 		//stop animation		
 			this.stop=function(){
 			clearTimeout(animate);
-			state=1;
+			//state=1;
+			arrow(angleInDegrees2,b1);
+			arrow(angleInDegrees3,b2);
+			//chngarrow1();
+			//chngarrow2();
 			drawtextdata();
 			//taketostart();
 			
@@ -1268,14 +1288,76 @@ function case1()
 			this.drawtextdata=function()
 			{
 				var str="";
+				context.font = "15px Arial";
 				if(type=="N")
 				{
-				context.font = "15px Arial";
-				str="object 2 relative velocity "+b2rv;
+				
+				
+				str="shortest distance is starting distance";
 				context.strokeText(str,0,15);
-				str="object 2 relative velocity bearing "+tdeg;
-				context.strokeText(str,0,30);
+				str="details of object 2";
+				context.strokeText(str,0,35);
+				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
+				context.strokeText(str,0,50);
+				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
+				context.strokeText(str,0,65);
+				str="distance from object 1   "+dist+" bearing   "+distdeg;
+				context.strokeText(str,0,80);
+				str="details of object 1";
+				context.strokeText(str,0,100);
+				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
+				context.strokeText(str,0,115);
+				
 				}
+				else if(type=="M")
+				{
+				str="objects are meeting";
+				context.strokeText(str,0,15);
+				str="time taken to meeting  "+time;
+				context.strokeText(str,0,30);
+				str="details of object 2";
+				context.strokeText(str,0,55);
+				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
+				context.strokeText(str,0,70);
+				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
+				context.strokeText(str,0,85);
+				str="distance from object 1   "+dist+" bearing   "+distdeg;
+				context.strokeText(str,0,100);
+				str="distance to meeting position   "+bd2;
+				context.strokeText(str,0,115);
+				
+				str="details of object 1";
+				context.strokeText(str,0,135);
+				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
+				context.strokeText(str,0,150);
+				str="distance to meeting position   "+bd1;
+				context.strokeText(str,0,165);
+				}
+				else
+				{
+				str="shortest distance occuring between objects  "+shortd;
+				context.strokeText(str,0,15);
+				str="time taken to shortest distance  "+time;
+				context.strokeText(str,0,30);
+				str="details of object 2";
+				context.strokeText(str,0,55);
+				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
+				context.strokeText(str,0,70);
+				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
+				context.strokeText(str,0,85);
+				str="distance from object 1   "+dist+" bearing   "+distdeg;
+				context.strokeText(str,0,100);
+				str="distance from start when shortest distance occur   "+bd2;
+				context.strokeText(str,0,115);
+				
+				str="details of object 1";
+				context.strokeText(str,0,135);
+				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
+				context.strokeText(str,0,150);
+				str="distance from start when shortest distance occur   "+bd1;
+				context.strokeText(str,0,165);
+				}
+				
 			}
 		
 
@@ -1283,7 +1365,7 @@ function case1()
 
 			this.animateshow=function()
 			{
-			document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();" >Show result </button></a>';
+			document.getElementById("showanimatebtn").innerHTML='<a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();" ></a>';
 			}
 			this.animatehide=function()
 			{
@@ -1310,17 +1392,23 @@ function case1()
 			this.chngarrow1=function()
 			{
 			angleInDegrees2=parseFloat(document.getElementById("b1deg").value);
+			
 			if(angleInDegrees2>180)angleInDegrees2=angleInDegrees2-180;
 			else angleInDegrees2=angleInDegrees2+180;
 			arrow(angleInDegrees2,b1);
+			//context.font = "15px Arial";
+			//context.strokeText(""+document.getElementById("b1deg").value,b1.X+50,b1.Y);
 			}
 		
 			this.chngarrow2=function()
 			{
 			angleInDegrees3=parseFloat(document.getElementById("b2deg").value);
+			
 			if(angleInDegrees3>180)angleInDegrees3=angleInDegrees3-180;
 			else angleInDegrees3=angleInDegrees3+180;
 			arrow(angleInDegrees3,b2);
+			//context.font = "15px Arial";
+			//context.strokeText(1000,b2.X+40,b2.Y);
 			}
 
 	}
