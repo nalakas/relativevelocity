@@ -16,11 +16,11 @@ This contains the JavaScript files used.   Jquery and the bootstrap is used by t
 	bootstrap-theme.min.css<br> 
 	font-awesome.min<br> 
 
-	<h4>Index.html</h4>
+	Index.html
 The index.html file contains all main functionality functions used in this project.
 These are defined with several method and variables, explained below.
 	
-	<h5>Variables</h5>
+	Variables
 Flag:indicate the current case. 1 or case 2<br>
 	case 1 varibles<br>
 	vo:object velocity  <br>
@@ -74,7 +74,7 @@ type: "M" for meet "S" for shortest distance "N" for no shortest distance<br><br
 reldist1:relative distance when shortest available<br>
 reldist2:relative distance when shortest available<br>
 
-	<h4>Methods</h4>
+	Methods
 Setflag:switch between  case 1 and case 2<br>
 
 Case 1 methods<br>
