@@ -1,10 +1,10 @@
-	<h4>Relative Velocity</h4>
+	Relative Velocity
 
-	<h4>Project Directory Structure  </h4>
+	Project Directory Structure  
 
 This project contains files and folders. The structure of the contents of this  folder is outlined below:<br>  
 	images/  <br> 
-This contains any images used for instruction showing, canvas images, arrow ‘s images for changing angle. <br> 
+This contains any images used for instruction showing, canvas images, arrow â€˜s images for changing angle. <br> 
 	js/  <br> 
 This contains the JavaScript files used.   Jquery and the bootstrap is used by the project. <br>  
 	css /<br> 
