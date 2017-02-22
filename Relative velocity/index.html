@@ -31,20 +31,15 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-		<div class="collapse navbar-collapse" style="background-image: url('images/button.jpg')" >
-			  <ul class="nav navbar-nav">
+		<div class="collapse navbar-collapse" style="background-image: url('images/button.jpg');" >
+			  <ul class="nav navbar-nav" style="float:left;">
 				<li id="optionchhg">
 					<a>
 						<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button.jpg')"  >One object moving 
 						</button>
 					</a>
 				</li>
-				<li>
-					<a>
-						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instruction 
-						</button>
-					</a>
-				</li>
+				
 				<li id="swap">
 					<a>
 						<button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url('images/button.jpg')"  >Switch to two object
@@ -55,6 +50,14 @@
 				</li>
 				<li>
 					<a id="menu">
+					</a>
+				</li>
+				</ul>
+				<ul class="nav navbar-nav" style="float:right;">
+				<li>
+					<a>
+						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instruction 
+						</button>
 					</a>
 				</li>
 			  </ul>
@@ -106,6 +109,7 @@
 	var distdeg;//bearing of object 2 relative to object 1
 	var b1rv;//object 1 relative velocity
 	var b2rv;//object 2 relative velocity
+	var tdeg;//object relative velocity degree
 	var shortd;//shortest distance if available
 	var time;//time taken to obtain shortest distance
 	var bd1;//distance  from start position of object 1 when shortest distance 
@@ -124,6 +128,7 @@
 	var pix=100;//minimum pixels between objects
 	var reldist1;//relative distance when shortest available
 	var reldist2;//relative distance when shortest available
+	var state=1;
 	
 
 	//switch between case 1 and case 2
@@ -134,9 +139,10 @@
 			{
 				flag=2;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
-				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();" style="background-image: url(\'images/button.jpg\')"  >Two object moving </button></a>';
+				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();stop();" style="background-image: url(\'images/button.jpg\')"  >Two object moving </button></a>';
 				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url(\'images/button.jpg\')"  >Switch to one object</button></a>';
 				animatehide();
+				state=1;
 				case2();
 			
 			}
@@ -623,7 +629,8 @@ function case1()
 		X : x1,
 		Y : y1,
 		A :180,
-		N :"1"
+		N :"1",
+		C :'#ff0000'
 		};
 		
 		var b2  = 
@@ -631,8 +638,29 @@ function case1()
 		X : x2,
 		Y : y2,
 		A :180,
-		N :"2"
+		N :"2",
+		C :'#ddff00'
 		};
+		
+		var b5  = 
+		{
+		X : x1,
+		Y : y1,
+		A :180,
+		N :"5",
+		C :'#ff0000'
+		};
+		
+		var b6  = 
+		{
+		X : x2,
+		Y : y2,
+		A :180,
+		N :"6",
+		C :'#ddff00'
+		};
+		
+		
 		
 		
 		//alert(b1.X+" "+b1.Y);
@@ -654,9 +682,9 @@ function case1()
 			
 			context.fillStyle = col;//'#ff0000'
 			context.fill();
-			
-			context.font = "15px Arial";
-			context.strokeText("ob"+ob.N,ob.X-30,ob.Y);
+			//context.clearRect(ob.X-30,ob.Y-10,20,10);
+			//context.font = "15px Arial";
+			//context.strokeText("ob"+ob.N,ob.X-30,ob.Y);
 			}
 			
 			
@@ -685,6 +713,7 @@ function case1()
 
 
 				function handleMouseDown(e){
+					
 				  isDragging=true;
 				  
 				}
@@ -694,13 +723,13 @@ function case1()
 				}
 			
 				function handleMouseMove(e){
-				if(isDragging){
+				if(isDragging && (state==1) && (bb.N=="1" || bb.N=="2")){
 			  
 				var rect = canvas.getBoundingClientRect();
 		  
 				var xc = parseInt(e.clientX-rect.left);
 				var yc = parseInt(e.clientY-rect.top);
-				if((xc>bb.X-50 && xc<bb.X+50)&&(yc<bb.Y+50 && yc>bb.Y -50))
+				if((xc>bb.X-50 && xc<bb.X+50)&&(yc<bb.Y+50 && yc>bb.Y -50) )
 					{
 					if(xc<=bb.X && yc<=bb.Y)
 						{
@@ -757,15 +786,15 @@ function case1()
 				ctx.rotate(degrees*Math.PI/180);
 				ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
 				ctx.restore();
-				drawObject(bb,ctx,'#ff0000');
+				drawObject(bb,ctx,bb.C);
 					
 				}
 			});
 	}
 
 	
-			drawObject(b1,context,'#ff0000');
-			drawObject(b2,context,'#ff0000');
+			//drawObject(b1,context,'#ff0000');
+			//drawObject(b2,context,'#ff0000');
 			//alert(b1.X);
 			arrow(b2.A,b2);
 			arrow(b1.A,b1);
@@ -801,7 +830,7 @@ function case1()
 			
 			
 			
-			var tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
+			 tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
 			//alert(" alet1 "+tdeg);
 			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;//
 			else if((vn2-vn1)==0 && (ve2-ve1)<0){tdeg=270;/*alert(" nn1");*/}
@@ -1009,16 +1038,23 @@ function case1()
 				b1.Y=200+50*Math.cos(Math.PI*(distdeg)/180);
 				b2.X=550+50*Math.sin(Math.PI*(distdeg)/180);
 				b2.Y=200-50*Math.cos(Math.PI*(distdeg)/180);
+				b5.X=550-50*Math.sin(Math.PI*(distdeg)/180);
+				b5.Y=200+50*Math.cos(Math.PI*(distdeg)/180);
+				b6.X=550+50*Math.sin(Math.PI*(distdeg)/180);
+				b6.Y=200-50*Math.cos(Math.PI*(distdeg)/180);
+				
+				drawObject(b1,context,b1.C);
+				drawObject(b2,context,b2.C);
 				alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
-			drawObject(b1,context,'#ff0000');
-			drawObject(b2,context,'#ff0000');
+			//drawObject(b1,context,b1.C);
+			//drawObject(b2,context,b2.C);
 			}
 			else
 			{
 			
 			
 				
-				
+				pix=100;
 			var x01=0;
 			var y01=0;
 			
@@ -1031,7 +1067,7 @@ function case1()
 			var x04=x01+bd1*Math.sin(Math.PI*(b1deg)/180);
 			var y04=y01-bd1*Math.cos(Math.PI*(b1deg)/180);
 			
-			var xmin=x01;
+			/*var xmin=x01;
 			var xmax=x01;
 			var ymin=y01;
 			var ymax=y01;
@@ -1053,10 +1089,16 @@ function case1()
 				if(ymax<y02){ymax=y02;}
 				if(ymax<y03){ymax=y03;}
 				if(ymax<y04){ymax=y04;}
+				*/
 				
-				alert("done"+x01+" "+x02+" "+x03+" "+x04+" m"+xmax+" "+xmin);
-				alert("done"+y01+" "+y02+" "+y03+" "+y04+" m"+ymax+" "+ymin);
-				if(((Math.abs(xmax-xmin)/1000)<=dist/pix) &&((Math.abs(ymax-ymin)/300)<=dist/pix))
+			var xmin=Math.min(x01,x02,x03,x04);
+			var xmax=Math.max(x01,x02,x03,x04);
+			var ymin=Math.min(y01,y02,y03,y04);
+			var ymax=Math.max(y01,y02,y03,y04);
+				
+				//alert("done"+x01+" "+x02+" "+x03+" "+x04+" m"+xmax+" "+xmin);
+				//alert("done"+y01+" "+y02+" "+y03+" "+y04+" m"+ymax+" "+ymin);
+				if(((Math.abs(xmax-xmin)/1050)<=dist/pix) &&((Math.abs(ymax-ymin)/350)<=dist/pix))
 				{
 					while(((Math.abs(xmax-xmin)/1050)<=dist/pix) &&((Math.abs(ymax-ymin)/350)<=dist/pix))
 					{
@@ -1064,7 +1106,7 @@ function case1()
 						
 					}
 					pix=pix-100;
-					
+					alert("scaled");
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1096,8 +1138,13 @@ function case1()
 						A :180,
 						N :"4"
 						};
-					drawObject(b1,context,'#ff0000');
-					drawObject(b2,context,'#ff0000');
+						b5.X=x01;
+						b5.Y=y01;
+						b6.X=x02;
+						b6.Y=y02;
+						
+					drawObject(b1,context,b1.C);
+					drawObject(b2,context,b2.C);
 					drawObject(b3,context,'#ff0000');
 					drawObject(b4,context,'#ff0000');
 					
@@ -1107,7 +1154,7 @@ function case1()
 				{
 				
 				
-					
+					alert("not scaled");
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1124,9 +1171,21 @@ function case1()
 					
 					if(x02<xmin2){xmin2=x02;}
 					if(y02<ymin2){ymin2=y02;}
+					var xtempval=0;
+					var ytempval=0;
+					if(x01>x03)
+					{
+					xtempval=950;
+					}
 					
-					x02=x02-(xmin2); x01=x01-(xmin2);x03=x03-(xmin2); x04=x04-(xmin2);
-					y02=-ymin2+y02; y01=-ymin2+y01;y03=-ymin2+y03; y04=-ymin2+y04;
+					if(y01>y03)
+					{
+					ytempval=290;
+					}
+					x02=25+x02-(xmin2)+xtempval; x01=25+x01-(xmin2)+xtempval;x03=25+x03-(xmin2)+xtempval; x04=25+x04-(xmin2)+xtempval;
+					y02=25-ymin2+y02+ytempval; y01=25-ymin2+y01+ytempval;y03=25-ymin2+y03+ytempval; y04=25-ymin2+y04+ytempval;
+					
+					
 					
 					
 					
@@ -1150,8 +1209,12 @@ function case1()
 						A :180,
 						N :"4"
 						};
-					drawObject(b1,context,'#ff0000');
-					drawObject(b2,context,'#ff0000');
+						b5.X=x01;
+						b5.Y=y01;
+						b6.X=x02;
+						b6.Y=y02;
+					drawObject(b1,context,b1.C);
+					drawObject(b2,context,b2.C);
 					drawObject(b3,context,'#ff0000');
 					drawObject(b4,context,'#ff0000');
 					
@@ -1169,23 +1232,24 @@ function case1()
 	
 	
 		this.move2=function(){
+			state=2;
 			//drawObject(b1,context,'#d0dee0');//clear object
 			//drawObject(b2,context,'#d0dee0');//clear object
-			drawObject(b2,context,'#00ccff');
-			drawObject(b1,context,'#00ccff');
+			drawObject(b5,context,'#00ccff');
+			drawObject(b6,context,'#00ccff');
 			//alert("data"+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
-			b1.X=b1.X+(tvb1e);
-			b1.Y=b1.Y-(tvb1n);
+			b5.X=b5.X+(tvb1e);
+			b5.Y=b5.Y-(tvb1n);
 			
-			b2.X=b2.X+(tvb2e);
-			b2.Y=b2.Y-(tvb2n);
+			b6.X=b6.X+(tvb2e);
+			b6.Y=b6.Y-(tvb2n);
 			
-			drawObject(b1,context,'#ff0000');
-			drawObject(b2,context,'#ff0000');
-			
+			drawObject(b5,context,b1.C);
+			drawObject(b6,context,b2.C);
+		
 			//if object reach to corners stop object
 			
-			if(b1.X>=1085 || b1.Y<=15 ||b1.Y >390||b1.X<=10 || b2.X>=1085 || b2.Y<=15 || b2.X<=10 || b2.Y>390)
+			if(b5.X>=1085 || b5.Y<=15 ||b5.Y >390||b5.X<=10 || b6.X>=1085 || b6.Y<=15 || b6.X<=10 || b6.Y>390)
 			{stop();return;}
 		//	alert("in");
 			
@@ -1195,17 +1259,31 @@ function case1()
 		//stop animation		
 			this.stop=function(){
 			clearTimeout(animate);
-			taketostart();
+			state=1;
+			drawtextdata();
+			//taketostart();
 			
 			}
 			
+			this.drawtextdata=function()
+			{
+				var str="";
+				if(type=="N")
+				{
+				context.font = "15px Arial";
+				str="object 2 relative velocity "+b2rv;
+				context.strokeText(str,0,15);
+				str="object 2 relative velocity bearing "+tdeg;
+				context.strokeText(str,0,30);
+				}
+			}
 		
 
 
 
 			this.animateshow=function()
 			{
-			document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" style="background-image: url(\'images/button.jpg\')" onclick="caldata();" >Show result </button></a>';
+			document.getElementById("showanimatebtn").innerHTML='<a><button class="btn btn-success"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();" >Show result </button></a>';
 			}
 			this.animatehide=function()
 			{
@@ -1225,7 +1303,7 @@ function case1()
 			{
 
 					var options = document.getElementById("btn2");
-					 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow()">OK</button>';
+					 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow();caldata();">OK</button>';
 
 			}
 		
