@@ -18,10 +18,9 @@ Click on the instruction button to know how to give data for simulation.
 
 
 <h4> Tests </h4>
- for one object case object can have two chances for velocity: <br>
-	(1)Velocity Relative to Ground<br>
-	(2)Velocity to river<br>
-	
+ for one object case object can have two chances for velocity: 
+	(1)Velocity Relative to Ground
+	(2)Velocity to river
 		->	->	->
 		V(o,r)=V(o,g)+V(r,g)
 		
@@ -50,11 +49,12 @@ Click on the instruction button to know how to give data for simulation.
 <h4> Contributing</h4>
 
 Thanks for your interest in contributing to Relative velocity!
-There are many ways to contribute. To get started, take a look at CONTRIBUTING.docx ,Developer.docx.
+There are many ways to contribute. To get started, take a look at <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> ,
+<a href="DEVELOPER.md">DEVELOPER.md</a>
 
-Participation Guidelines
+<h5>Participation Guidelines</h5>
 
-This project adheres to a CODE_OF_CONDUCT.md 
+This project adheres to a <a href="CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> 
 By participating, you are expected to uphold this code. Please report unacceptable behavior to relativevelocity001@gmail.com
 
 			
