@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="icon" href="images/logo.png">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>  
 </head>
@@ -33,27 +34,29 @@
         </div>
 		<div class="collapse navbar-collapse" style="background-image: url('images/button.jpg');" >
 			  <ul class="nav navbar-nav" style="float:left;">
+			  <li id="swap">
+					
+						<img src="images/switch.gif"   data-toggle="modal" onclick="setflag()" width="75" height="65"  >
+						
+					
+				</li>
 				<li id="optionchhg">
-					<a>
-						<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button2.jpg')"  >Insert Data 
-						</button>
+					<a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url('images/button2.jpg')"  >Insert Data 
+					</button>
 					</a>
 				</li>
 				
-				<li id="swap">
-					<a>
-						<button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url('images/button.jpg')"  >Switch to two object
-						</button>
-					</a>
-				</li>
 				
-				<li>
-					<a id="menu">
-					</a>
-				</li>
+				
+				<!--<li>
+				<a id="showdatabutton" >
+				</a>
+				</li>-->
 				</ul>
 				<a id="showanimatebtn" >
 				</a>
+				
 				<ul class="nav navbar-nav" style="float:right;">
 				
 				<li>
@@ -104,7 +107,7 @@
 	
 	//case 2 varibles
 	var b1v;//object 1 velocity
-	var b1v;//object 2 velocity
+	var b2v;//object 2 velocity
 	var b1deg;//object 1 bearing
 	var b2deg;//object 2 bearing
 	var dist;//distance between object
@@ -141,8 +144,8 @@
 			{
 				flag=2;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
-				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();stop();" style="background-image: url(\'images/button2.jpg\')"  >Two object moving </button></a>';
-				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag()" style="background-image: url(\'images/button.jpg\')"  >Switch to one object</button></a>';
+				document.getElementById("optionchhg").innerHTML='<a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')"  >Insert Data</button></a>';
+				//document.getElementById("swap").innerHTML='<img src="images/switch.gif"   data-toggle="modal" onclick="setflag()" width="80" height="65"  >';
 				animatehide();
 				//state=1;
 				case2();
@@ -152,8 +155,8 @@
 			{
 				flag=1;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas1.gif\')"  ></canvas> </div> ';
-				document.getElementById("optionchhg").innerHTML='<a><button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')" >One object moving </button></a>';
-				document.getElementById("swap").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="setflag();" style="background-image: url(\'images/button.jpg\')"  >Switch to two object</button></a>';
+				document.getElementById("optionchhg").innerHTML='<a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')" >Insert Data </button></a>';
+				//document.getElementById("swap").innerHTML='<img src="images/switch.gif"   data-toggle="modal" onclick="setflag()" width="80" height="65" >';
 				animatehide();
 				case1();
 				chng();
@@ -441,6 +444,7 @@ function case1()
 			this.stop=function(){
 			clearTimeout(animate);
 			showdata();
+			animateshow();
 			arrow();
 			}
 		
@@ -600,12 +604,18 @@ function case1()
 	
 		this.animateshow=function()
 		{
-		document.getElementById("showanimatebtn").innerHTML='<a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"   onclick="(new case1()).cal();"></a>';
+		document.getElementById("showanimatebtn").innerHTML=' &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"   onclick="(new case1()).cal();animateshowdim();">';
+		}
+		
+		this.animateshowdim=function()
+		{
+		document.getElementById("showanimatebtn").innerHTML=' &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <img src="images/stopbtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"   onclick="stop();animateshow();">';
 		}
 		this.animatehide=function()
 		{
 		document.getElementById("showanimatebtn").innerHTML="";
 		}
+		
 	
 	}
 	
@@ -687,6 +697,29 @@ function case1()
 			//context.clearRect(ob.X-30,ob.Y-10,20,10);
 			//context.font = "15px Arial";
 			//context.strokeText("ob"+ob.N,ob.X-30,ob.Y);
+			
+			//context.restore();
+					//context.save();
+					if(ob.N=="1" || ob.N=="2")
+					{
+					context.beginPath();					
+					context.moveTo(b1.X,b1.Y);
+					context.lineTo(b1.X,b1.Y);
+					context.lineTo(b2.X,b2.Y);
+					
+					context.fillStyle = '#ff0000';//'#ff0000'
+					context.stroke();
+					
+					context.font = "15px Arial";
+					if(ob.N=="1")
+						{
+						context.strokeText(""+document.getElementById("b1deg").value,b1.X+7,b1.Y);
+						}
+					else if(ob.N=="2")
+						{
+						context.strokeText(""+document.getElementById("b2deg").value,b2.X+7,b2.Y);
+						}
+					}
 			}
 			
 			
@@ -760,8 +793,8 @@ function case1()
 				//drawObject(b2,context,'#ff0000');
 				drawRotated(bb.A,bb);
 				
-				context.font = "15px Arial";
-				context.strokeText(Math.round(tempangl),bb.X,bb.Y);
+				//context.font = "15px Arial";
+				//context.strokeText(Math.round(tempangl),bb.X,bb.Y);
 				if(bb.N=="1")
 				{
 					
@@ -852,7 +885,7 @@ function case1()
 				type="M";
 				bd1=(dist/b2rv)*b1v;
 				bd2=(dist/b2rv)*b2v;
-				alert("meet"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
+				//alert("meet"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
 				}
 				else
 				{
@@ -950,7 +983,7 @@ function case1()
 					time=(reldist2/b2rv).toFixed(3);
 					bd1=b1v*time;
 					bd2=b2v*time;
-					alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+reldist1);
+					//alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+reldist1);
 					
 					shortd=reldist1;
 							}
@@ -1052,7 +1085,7 @@ function case1()
 						chngarrow2();
 				//drawObject(b1,context,b1.C);
 				//drawObject(b2,context,b2.C);
-				alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
+				//alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
 			//drawObject(b1,context,b1.C);
 			//drawObject(b2,context,b2.C);
 			}
@@ -1113,7 +1146,7 @@ function case1()
 						
 					}
 					pix=pix-100;
-					alert("scaled");
+					//alert("scaled");
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1164,7 +1197,7 @@ function case1()
 				{
 				
 				
-					alert("not scaled");
+					//alert("not scaled");
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1240,6 +1273,8 @@ function case1()
 				
 			}
 			
+			//context.strokeText("a",b1.X,b1.Y);
+			//context.strokeText("a",b2.X,b2.Y);
 			
 			
 			}
@@ -1266,14 +1301,14 @@ function case1()
 			//if object reach to corners stop object
 			
 			if(b5.X>=1085 || b5.Y<=15 ||b5.Y >390||b5.X<=10 || b6.X>=1085 || b6.Y<=15 || b6.X<=10 || b6.Y>390)
-			{stop();return;}
+			{stop2();return;}
 		//	alert("in");
 			
 			animate = setTimeout(move2,10); // call movein 
 			}
 			
 		//stop animation		
-			this.stop=function(){
+			this.stop2=function(){
 			clearTimeout(animate);
 			//state=1;
 			arrow(angleInDegrees2,b1);
@@ -1281,12 +1316,48 @@ function case1()
 			//chngarrow1();
 			//chngarrow2();
 			drawtextdata();
+			animateshow2();
 			//taketostart();
 			
 			}
 			
 			this.drawtextdata=function()
 			{
+			
+			if(flag==2)
+			{
+				var xs=0;
+				var ys=0;
+					if(b1.X<=550 && b1.Y<=200)
+					{
+						if(b2.X<=550 && b2.Y>=170){xs=550;ys=0;}
+						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=220;}
+						else if(b2.X>=550 && b2.Y>=170){xs=620;ys=0;}
+						else if(b2.X<=550 && b2.Y<=170){xs=620;ys=0;}
+					}
+					else if(b1.X>=550 && b1.Y<=170)
+					{
+						if(b2.X<=550 && b2.Y>=170){xs=0;ys=0;}
+						else if(b2.X<=550 && b2.Y<=170){xs=0;ys=220;}
+						else if(b2.X>=550 && b2.Y>=170){xs=0;ys=0;}
+						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=0;}
+					
+					}
+					else if(b1.X<=550 && b1.Y>=170)
+					{
+						if(b2.X<=550 && b2.Y<=170){xs=550;ys=0;}
+						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=0;}
+						else if(b2.X>=550 && b2.Y>=170){xs=0;ys=0;}
+						else if(b2.X<=550 && b2.Y>=170){xs=620;ys=220;}
+					}
+					else 
+					{
+						if(b2.X<=550 && b2.Y<=170){xs=550;ys=0;}
+						else if(b2.X<=550 && b2.Y>=170){xs=0;ys=0;}
+						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=0;}
+						else if(b2.X>=550 && b2.Y>=170){xs=620;ys=0;}
+					}
+					
 				var str="";
 				context.font = "15px Arial";
 				if(type=="N")
@@ -1294,68 +1365,71 @@ function case1()
 				
 				
 				str="shortest distance is starting distance";
-				context.strokeText(str,0,15);
-				str="details of object 2";
-				context.strokeText(str,0,35);
+				context.strokeText(str,xs+0,ys+15);
+				str="* details of object 2";
+				context.strokeText(str,xs+0,ys+35);
 				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
-				context.strokeText(str,0,50);
+				context.strokeText(str,xs+0,ys+50);
 				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
-				context.strokeText(str,0,65);
+				context.strokeText(str,xs+0,ys+65);
 				str="distance from object 1   "+dist+" bearing   "+distdeg;
-				context.strokeText(str,0,80);
-				str="details of object 1";
-				context.strokeText(str,0,100);
+				context.strokeText(str,xs+0,ys+80);
+				str="* details of object 1";
+				context.strokeText(str,xs+0,ys+100);
 				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
-				context.strokeText(str,0,115);
+				context.strokeText(str,xs+0,ys+115);
 				
 				}
 				else if(type=="M")
 				{
 				str="objects are meeting";
-				context.strokeText(str,0,15);
+				context.strokeText(str,xs+0,ys+15);
 				str="time taken to meeting  "+time;
-				context.strokeText(str,0,30);
-				str="details of object 2";
-				context.strokeText(str,0,55);
+				context.strokeText(str,xs+0,ys+30);
+				str="* details of object 2";
+				context.strokeText(str,xs+0,ys+55);
 				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
-				context.strokeText(str,0,70);
+				context.strokeText(str,xs+0,ys+70);
 				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
-				context.strokeText(str,0,85);
+				context.strokeText(str,xs+0,ys+85);
 				str="distance from object 1   "+dist+" bearing   "+distdeg;
-				context.strokeText(str,0,100);
+				context.strokeText(str,xs+0,ys+100);
 				str="distance to meeting position   "+bd2;
-				context.strokeText(str,0,115);
+				context.strokeText(str,xs+0,ys+115);
 				
-				str="details of object 1";
-				context.strokeText(str,0,135);
+				str="* details of object 1";
+				context.strokeText(str,xs+0,ys+135);
 				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
-				context.strokeText(str,0,150);
+				context.strokeText(str,xs+0,ys+150);
 				str="distance to meeting position   "+bd1;
-				context.strokeText(str,0,165);
+				context.strokeText(str,xs+0,ys+165);
 				}
 				else
 				{
 				str="shortest distance occuring between objects  "+shortd;
-				context.strokeText(str,0,15);
+				context.strokeText(str,xs+0,ys+15);
 				str="time taken to shortest distance  "+time;
-				context.strokeText(str,0,30);
+				context.strokeText(str,xs+0,ys+30);
 				str="details of object 2";
-				context.strokeText(str,0,55);
+				context.strokeText(str,xs+0,ys+55);
 				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
-				context.strokeText(str,0,70);
+				context.strokeText(str,xs+0,ys+70);
 				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
-				context.strokeText(str,0,85);
+				context.strokeText(str,xs+0,ys+85);
 				str="distance from object 1   "+dist+" bearing   "+distdeg;
-				context.strokeText(str,0,100);
+				context.strokeText(str,xs+0,ys+100);
 				str="distance from start when shortest distance occur   "+bd2;
-				context.strokeText(str,0,115);
+				context.strokeText(str,xs+0,ys+115);
 				
 				str="details of object 1";
-				context.strokeText(str,0,135);
+				context.strokeText(str,xs+0,ys+135);
 				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
-				context.strokeText(str,0,150);
+				context.strokeText(str,xs+0,ys+150);
 				str="distance from start when shortest distance occur   "+bd1;
-				context.strokeText(str,0,165);
+				context.strokeText(str,xs+0,ys+165);
+					
+					
+				}
 				}
 				
 			}
@@ -1363,13 +1437,31 @@ function case1()
 
 
 
-			this.animateshow=function()
+			this.animateshow2=function()
 			{
-			document.getElementById("showanimatebtn").innerHTML='<a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();" ></a>';
+			document.getElementById("showanimatebtn").innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();animateshowdim2();" ></a>';
+			//document.getElementById("showdatabutton").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="caldata();drawtextdata();" style="background-image: url(\'images/button3.jpg\')"  >Result</button></a>';
+			//style="background-image: url(\'images/gobtn.png\')"  caldata();drawtextdata();
+			}
+			this.animateshowdim2=function()
+			{
+			document.getElementById("showanimatebtn").innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a><img src="images/stopbtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="stop2();animateshow2();" ></a>';
+			//document.getElementById("showdatabutton").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="caldata();drawtextdata();" style="background-image: url(\'images/button3.jpg\')"  >Result</button></a>';
+			//style="background-image: url(\'images/gobtn.png\')"  caldata();drawtextdata();
 			}
 			this.animatehide=function()
 			{
 			document.getElementById("showanimatebtn").innerHTML="";
+			//document.getElementById("showdatabutton").innerHTML="";
+			}
+			this.rotationaroundone=function()
+			{
+			
+			if(b1v!="undefined" && b2v!="" && b1deg!="" && b2deg!="" && dist!="" && distdeg!="")
+				{
+					//caldata();
+					//alert(distdeg+""+b1v);
+				}
 			}
 		
 			//show confirm button to confirm data
@@ -1385,28 +1477,34 @@ function case1()
 			{
 
 					var options = document.getElementById("btn2");
-					 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow();caldata();">OK</button>';
+					 options.innerHTML = ' <button id="submitbtn" type="submit" class="btn btn-success"  data-dismiss="modal" onclick="animateshow2();caldata();">OK</button>';
 
 			}
 		
 			this.chngarrow1=function()
+			{
+			if(document.getElementById("b1deg").value!="")
 			{
 			angleInDegrees2=parseFloat(document.getElementById("b1deg").value);
 			
 			if(angleInDegrees2>180)angleInDegrees2=angleInDegrees2-180;
 			else angleInDegrees2=angleInDegrees2+180;
 			arrow(angleInDegrees2,b1);
+			}
 			//context.font = "15px Arial";
 			//context.strokeText(""+document.getElementById("b1deg").value,b1.X+50,b1.Y);
 			}
 		
 			this.chngarrow2=function()
 			{
+			if(document.getElementById("b2deg").value!="")
+			{
 			angleInDegrees3=parseFloat(document.getElementById("b2deg").value);
 			
 			if(angleInDegrees3>180)angleInDegrees3=angleInDegrees3-180;
 			else angleInDegrees3=angleInDegrees3+180;
 			arrow(angleInDegrees3,b2);
+			}
 			//context.font = "15px Arial";
 			//context.strokeText(1000,b2.X+40,b2.Y);
 			}
@@ -1553,7 +1651,7 @@ function case1()
 						</div>
 						<div class="col-md-6">
 							<input type="number"  class="form-control"
-							id="distdeg"  min="0" max="360" onclick="confirmbtnshow();animatehide();"  required/>
+							id="distdeg"  min="0" max="360" onclick="confirmbtnshow();animatehide();" onkeyup="rotationaroundone();"  required/>
 						</div>
 
 					</div >
