@@ -53,6 +53,10 @@
 				<a id="showdatabutton" >
 				</a>
 				</li>-->
+				<!--<li>
+				<a id="rr" >asda
+				</a>
+				</li>-->
 				</ul>
 				<a id="showanimatebtn" >
 				</a>
@@ -73,7 +77,7 @@
 		</div>
 	</div >	
 	<div id="canvschng">
-		<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive" style="background-image: url('images/canvas1.gif')"   >
+		<canvas id="myCanvas" class='img-responsive' height="400px" width="1100px" class="img-responsive" style="background-image: url('images/canvas1.gif')"   >
 		</canvas>
 	</div> 
 	
@@ -258,11 +262,15 @@ function case1()
 		//var canvasOffset=$("#myCanvas").offset();
 		//var offsetX=canvasOffset.left;
 		//var offsetY=canvasOffset.top;
-		var x = parseInt(e.clientX-rect.left);
-		var y = parseInt(e.clientY-rect.top);
+		//var x = parseInt(e.clientX-offsetX);
+		//var x = parseInt(e.clientX-rect.left);
+		//var y = parseInt(e.clientY-rect.top);
+		//var y = parseInt(e.clientY-offsetY);
+		var x = ((1100*(e.clientX-rect.left))/(rect.right-rect.left));
+		var y = ((400*(e.clientY-rect.top))/(rect.bottom-rect.top));
 		
-		
-		
+		//var rrr=document.getElementById('myCanvas').height;
+		//document.getElementById("rr").innerHTML=x+" "+y +" ol"+offsetX+"ot"+offsetY +" cx"+e.clientX+" cy"+e.clientY;
 		if((x>450 && x<650)&&(y<canvas.height && y>canvas.height-100))
 				{
 				if(x<550)angleInDegrees=90+(Math.atan((y-canvas.height)/(x-550)))/(Math.PI/180);
@@ -373,6 +381,15 @@ function case1()
 				//alert(rvor+" "+edeg+" "+" "+ct+" "+dd);
 				}
 				
+				var tmpmax=Math.max(Math.abs(tvo1),Math.abs(tvo2));
+				while(tmpmax>10)
+					{
+						tvo1=tvo1/10;
+						tvo2=tvo2/10;
+						tmpmax=tmpmax/10;
+					}
+				
+				/*
 				if(tvo1>tvo2)
 				{
 					while(tvo1>5)
@@ -389,6 +406,7 @@ function case1()
 					tvo2=tvo2/10;
 					}
 				}
+				*/
 	
 			c=(1000*ct*tvo1)/(wr);
 	
@@ -654,6 +672,24 @@ function case1()
 		C :'#752550'
 		};
 		
+		var b3  = 
+		{
+		X : 0,
+		Y :0,
+		A :0,
+		N :"3",
+		C :'#752550'
+		};
+		
+		var b4  = 
+		{
+		X :0,
+		Y : 0,
+		A :0,
+		N :"4",
+		C :'#ff0000'
+		};
+		
 		var b5  = 
 		{
 		X : x1,
@@ -700,15 +736,19 @@ function case1()
 			
 			//context.restore();
 					//context.save();
+					
+					
+					
 					if(ob.N=="1" || ob.N=="2")
 					{
 					context.beginPath();					
-					context.moveTo(b1.X,b1.Y);
-					context.lineTo(b1.X,b1.Y);
-					context.lineTo(b2.X,b2.Y);
+					context.moveTo(b1.X,b1.Y-5);
+					context.lineTo(b1.X,b1.Y-5);
+					context.lineTo(b2.X,b2.Y-5);
 					
-					context.fillStyle = '#ff0000';//'#ff0000'
+					context.strokeStyle = '#000000';
 					context.stroke();
+					
 					
 					context.font = "15px Arial";
 					if(ob.N=="1")
@@ -718,6 +758,18 @@ function case1()
 					else if(ob.N=="2")
 						{
 						context.strokeText(""+document.getElementById("b2deg").value,b2.X+7,b2.Y);
+						}
+						
+						if(type=="S")
+						{
+						context.beginPath();					
+						context.moveTo(b3.X,b3.Y-5);
+						context.lineTo(b3.X,b3.Y-5);
+						context.lineTo(b4.X,b4.Y-5);
+						
+						context.strokeStyle = 'gray';//'#ff0000'
+						context.stroke();
+						context.strokeStyle = '#000000';
 						}
 					}
 			}
@@ -762,8 +814,12 @@ function case1()
 				//&& (state==1)
 				var rect = canvas.getBoundingClientRect();
 		  
-				var xc = parseInt(e.clientX-rect.left);
-				var yc = parseInt(e.clientY-rect.top);
+				//var xc = parseInt(e.clientX-rect.left);
+				//var yc = parseInt(e.clientY-rect.top);
+				
+				var xc = ((1100*(e.clientX-rect.left))/(rect.right-rect.left));
+				var yc = ((400*(e.clientY-rect.top))/(rect.bottom-rect.top));
+				
 				if((xc>bb.X-50 && xc<bb.X+50)&&(yc<bb.Y+50 && yc>bb.Y -50) )
 					{
 					if(xc<=bb.X && yc<=bb.Y)
@@ -826,14 +882,38 @@ function case1()
 				}
 			});
 	}
+	
+	
+					this.northarrow=function (){	
+					var hx=1085;
+					var hy=50;
+						context.beginPath();
+						
+						context.moveTo(hx,hy);
+						context.lineTo(hx,hy);
+						context.lineTo(hx,hy-50);
+						context.lineTo(hx+5,hy-40);
+						context.lineTo(hx-5,hy-40);
+						context.lineTo(hx,hy-50);
+						context.strokeStyle = '#0000ff';
+						context.stroke();
+						context.strokeText("N",hx+5,hy-25);
+						context.fillStyle ='#0000ff';
+						context.fill();
+					
+					context.strokeStyle = '#000000';
+					context.fillStyle ='#000000';
+					}
+					
 
 	
 			//drawObject(b1,context,'#ff0000');
 			//drawObject(b2,context,'#ff0000');
 			//alert(b1.X);
+			
 			arrow(b2.A,b2);
 			arrow(b1.A,b1);
-
+			northarrow();
 			//cval.arrow(b2);
 
 			this.caldata=function() //to cal for case 2
@@ -1062,6 +1142,7 @@ function case1()
 			this.taketostart=function()
 			{
 			context.clearRect(0,0,canvas.width,canvas.height);
+			northarrow();
 			/*b1.X=x1;
 			b1.Y=y1;
 			//context.clearRect(0,0,canvas.width,canvas.height);
@@ -1163,21 +1244,12 @@ function case1()
 					b2.X=x02;
 					b2.Y=y02;
 					
-						var b3  = 
-						{
-						X : x03,
-						Y : y03,
-						A :180,
-						N :"3"
-						};
+						b3.X  = x03;
+						b3.Y  = y03;
+						b4.X  = x04;
+						b4.Y  = y04;
 						
-						var b4  = 
-						{
-						X : x04,
-						Y : y04,
-						A :180,
-						N :"4"
-						};
+						
 						b5.X=x01;
 						b5.Y=y01;
 						b6.X=x02;
@@ -1188,8 +1260,8 @@ function case1()
 						//arrow(b2.A,b2);
 					//drawObject(b1,context,b1.C);
 					//drawObject(b2,context,b2.C);
-					drawObject(b3,context,'#ff0000');
-					drawObject(b4,context,'#ff0000');
+					drawObject(b3,context,b2.C);
+					drawObject(b4,context,b1.C);
 					
 					
 				}
@@ -1237,21 +1309,11 @@ function case1()
 					b2.X=x02;
 					b2.Y=y02;
 					
-						var b3  = 
-						{
-						X : x03,
-						Y : y03,
-						A :180,
-						N :"3"
-						};
+						b3.X  = x03;
+						b3.Y  = y03;
+						b4.X  = x04;
+						b4.Y  = y04;
 						
-						var b4  = 
-						{
-						X : x04,
-						Y : y04,
-						A :180,
-						N :"4"
-						};
 						b5.X=x01;
 						b5.Y=y01;
 						b6.X=x02;
@@ -1263,8 +1325,8 @@ function case1()
 						chngarrow2();
 					//drawObject(b1,context,b1.C);
 					//drawObject(b2,context,b2.C);
-					drawObject(b3,context,'#ff0000');
-					drawObject(b4,context,'#ff0000');
+					drawObject(b3,context,b2.C);
+					drawObject(b4,context,b1.C);
 					
 				
 				}
@@ -1330,10 +1392,10 @@ function case1()
 				var ys=0;
 					if(b1.X<=550 && b1.Y<=200)
 					{
-						if(b2.X<=550 && b2.Y>=170){xs=550;ys=0;}
+						if(b2.X<=550 && b2.Y>=170){xs=700;ys=0;}
 						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=220;}
-						else if(b2.X>=550 && b2.Y>=170){xs=620;ys=0;}
-						else if(b2.X<=550 && b2.Y<=170){xs=620;ys=0;}
+						else if(b2.X>=550 && b2.Y>=170){xs=700;ys=0;}
+						else if(b2.X<=550 && b2.Y<=170){xs=700;ys=0;}
 					}
 					else if(b1.X>=550 && b1.Y<=170)
 					{
@@ -1345,17 +1407,17 @@ function case1()
 					}
 					else if(b1.X<=550 && b1.Y>=170)
 					{
-						if(b2.X<=550 && b2.Y<=170){xs=550;ys=0;}
+						if(b2.X<=550 && b2.Y<=170){xs=700;ys=0;}
 						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=0;}
 						else if(b2.X>=550 && b2.Y>=170){xs=0;ys=0;}
-						else if(b2.X<=550 && b2.Y>=170){xs=620;ys=220;}
+						else if(b2.X<=550 && b2.Y>=170){xs=700;ys=220;}
 					}
 					else 
 					{
-						if(b2.X<=550 && b2.Y<=170){xs=550;ys=0;}
+						if(b2.X<=550 && b2.Y<=170){xs=700;ys=0;}
 						else if(b2.X<=550 && b2.Y>=170){xs=0;ys=0;}
 						else if(b2.X>=550 && b2.Y<=170){xs=0;ys=0;}
-						else if(b2.X>=550 && b2.Y>=170){xs=620;ys=0;}
+						else if(b2.X>=550 && b2.Y>=170){xs=700;ys=0;}
 					}
 					
 				var str="";
@@ -1364,10 +1426,11 @@ function case1()
 				{
 				
 				
-				str="shortest distance is starting distance";
+				str="* shortest distance is starting distance";
 				context.strokeText(str,xs+0,ys+15);
 				str="* details of object 2";
 				context.strokeText(str,xs+0,ys+35);
+
 				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
 				context.strokeText(str,xs+0,ys+50);
 				str="velocity relative to ground   "+b2v+" bearing   "+b2deg;
@@ -1382,7 +1445,7 @@ function case1()
 				}
 				else if(type=="M")
 				{
-				str="objects are meeting";
+				str="* objects are meeting";
 				context.strokeText(str,xs+0,ys+15);
 				str="time taken to meeting  "+time;
 				context.strokeText(str,xs+0,ys+30);
@@ -1406,11 +1469,11 @@ function case1()
 				}
 				else
 				{
-				str="shortest distance occuring between objects  "+shortd;
+				str="* shortest distance occuring between objects  "+shortd;
 				context.strokeText(str,xs+0,ys+15);
 				str="time taken to shortest distance  "+time;
 				context.strokeText(str,xs+0,ys+30);
-				str="details of object 2";
+				str="* details of object 2";
 				context.strokeText(str,xs+0,ys+55);
 				str="velocity relative to object 1   "+b2rv+" bearing   "+tdeg;
 				context.strokeText(str,xs+0,ys+70);
@@ -1421,7 +1484,7 @@ function case1()
 				str="distance from start when shortest distance occur   "+bd2;
 				context.strokeText(str,xs+0,ys+115);
 				
-				str="details of object 1";
+				str="* details of object 1";
 				context.strokeText(str,xs+0,ys+135);
 				str="object 1 velocity relative to ground   "+b1v+" bearing   "+b1deg;
 				context.strokeText(str,xs+0,ys+150);
