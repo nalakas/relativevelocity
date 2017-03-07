@@ -14,13 +14,15 @@ we used jquery,bootstrap, html,css and javascript.
 this can use online or download the relative velocity folder and run the index.html file on your browser.
 Click on the instruction button to know how to give data for simulation.
 
-<h4><a href="Relative velocity/index.html">Start Simulation Here</a> </h4>
+<h4><a href="http://nalakasenarathna.github.io/relativevelocity/Relative%20velocity/index.html">Start Simulation Here</a> </h4>
 
 
 
 <h4> Tests </h4>
  for one object case object can have two chances for velocity: 
+ 
 	(1)Velocity Relative to Ground
+	
 	(2)Velocity to river
 	
 		->	->	->
