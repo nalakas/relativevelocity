@@ -366,14 +366,14 @@ function case1()
 			chng();
 			//c=(1000*wr)/(ct*Math.min(tvo1,tvo2)*(canvas.height));
 			//c=(1000*ct)/(wr);
-			var tmpabs=Math.abs(Math.max(tvo1,tvo2));
+			var tmpabs=Math.max(Math.abs((tvo1)),Math.abs(tvo2));
 			//c=(1000*ct*sh)/(wr);
-			c=(wr*1000)/((canvas.height)*tmpabs);
+			c=(wr*5000)/(canvas.height*tmpabs);
 			//tvo1=(((canvas.height)*tvo1*c)/(wr*1000));
 			//tvo2=(((canvas.height)*tvo2*c)/(wr*1000));
-			tvo1=tvo1/tmpabs;
-			tvo2=tvo2/tmpabs;
-			//alert(c);
+			tvo1=(5*tvo1)/(tmpabs);
+			tvo2=(5*tvo2)/(tmpabs);
+			//alert(canvas.height+" "+tmpabs+" "+c);
 			//c2=(dist)*1000/(pix*Math.min(b1v,b2v));
 			//alert(pix+" "+c2);
 			//tvb1e=((pix*tvb1e*c2)/(dist*1000));
@@ -1178,12 +1178,13 @@ function case1()
 				
 			}
 			//c2=0;
-			c2=(dist)*1000/(pix*Math.min(b1v,b2v));
+			c2=(dist)*5000/(pix*Math.max(b1v,b2v));
 			//alert(pix+" "+c2);
-			tvb1e=((pix*tvb1e*c2)/(dist*1000));
-			tvb1n=((pix*tvb1n*c2)/(dist*1000));
-			tvb2e=((pix*tvb2e*c2)/(dist*1000));
-			tvb2n=((pix*tvb2n*c2)/(dist*1000));
+			tvb1e=((tvb1e*5)/(Math.max(b1v,b2v)));
+			tvb1n=((tvb1n*5)/(Math.max(b1v,b2v)));
+			tvb2e=((tvb2e*5)/(Math.max(b1v,b2v)));
+			tvb2n=((tvb2n*5)/(Math.max(b1v,b2v)));
+			
 			}
 	
 	
@@ -1582,7 +1583,7 @@ In here, the movement for a single object is identified as "Object 01" and movem
 					<h2> for object 1 simulation</h2><br>
 					<h4>This is the interface for the object one.</h4><br>
 					
-                    <img src="images/c1.PNG" class="img-responsive" width="500" height="500"><br><br>
+                    <img src="images/c1.png" class="img-responsive" width="500" height="500"><br><br>
 					<ul> 
 					<li><h4>By clicking the "SWITCH" button which is numbered as No:1 you can be shifted easily into object 2.</h4> </li><br> 
 					<li><h4>By clicking the "Insert Data" button which is numbered as No:2  is used for inserting data</h4></li><br> 
@@ -1590,7 +1591,7 @@ In here, the movement for a single object is identified as "Object 01" and movem
 					
 					<h2> for object 2 simulation</h2><br>
 					<h4>This is the interface for Object two.<br></h4>
-					<img src="images/c4.PNG" class="img-responsive" width="500" height="500"></center>
+					<img src="images/c4.png" class="img-responsive" width="500" height="500"></center>
 					<ul> 
 					<li><h4>By clicking the "SWITCH" button which is numbered as No:1 you can be shifted easily into object 1.</h4> </li><br> 
 					<li><h4>By clicking the "Insert Data" button which is numbered as No:2 ,
