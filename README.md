@@ -1,10 +1,11 @@
 # RELATIVE VELOCITY
 <h4> Synopsis about our project </h4>
 
-We are developing a project for relative velocity experiment simulation.If we give details which we have about one or two objects 
-then here find relative velocity and show above object movement.This project most important to students for their studies.relavant
-to this simulations shown in the project there are problems in finding relative velocity(mechanics in Physics and in aplied mathamatics).
-Also lecturer can use this simulation to give lectures
+We have developed this project for relative velocity experiment simulations.
+We can find relative velocity of an object or two objects using this project.
+This project is suitable for student who follow relative velocity for their studies 
+and lectures also can use this simulation for their relative velocity lectures.
+
 
 we used jquery,bootstrap, html,css and javascript.
 
@@ -21,6 +22,7 @@ Click on the instruction button to know how to give data for simulation.
  for one object case object can have two chances for velocity: 
 	(1)Velocity Relative to Ground
 	(2)Velocity to river
+	
 		->	->	->
 		V(o,r)=V(o,g)+V(r,g)
 		
