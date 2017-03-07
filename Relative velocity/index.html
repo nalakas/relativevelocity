@@ -65,7 +65,7 @@
 				
 				<li>
 					<a>
-						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instruction 
+						<button class="btn btn-success" data-toggle="modal" data-target="#show_instruction" style="background-image: url('images/button.jpg')"  >Instructions
 						</button>
 					</a>
 				</li>
@@ -138,6 +138,7 @@
 	var reldist1;//relative distance when shortest available
 	var reldist2;//relative distance when shortest available
 	//var state=1;
+	var c2=10;
 	
 
 	//switch between case 1 and case 2
@@ -149,9 +150,7 @@
 				flag=2;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas2" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas2.jpg\')"  ></canvas> </div> ';
 				document.getElementById("optionchhg").innerHTML='<a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button class="btn btn-success"  data-toggle="modal" data-target="#popup2" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')"  >Insert Data</button></a>';
-				//document.getElementById("swap").innerHTML='<img src="images/switch.gif"   data-toggle="modal" onclick="setflag()" width="80" height="65"  >';
 				animatehide();
-				//state=1;
 				case2();
 			
 			}
@@ -160,7 +159,6 @@
 				flag=1;
 				document.getElementById("canvschng").innerHTML='<canvas id="myCanvas" height="400px" width="1100px" class="img-responsive"   style="background-image: url(\'images/canvas1.gif\')"  ></canvas> </div> ';
 				document.getElementById("optionchhg").innerHTML='<a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button class="btn btn-success"  data-toggle="modal" data-target="#popup" onclick="confirmbtnshow();" style="background-image: url(\'images/button2.jpg\')" >Insert Data </button></a>';
-				//document.getElementById("swap").innerHTML='<img src="images/switch.gif"   data-toggle="modal" onclick="setflag()" width="80" height="65" >';
 				animatehide();
 				case1();
 				chng();
@@ -250,27 +248,11 @@ function case1()
 		}
 		
 		function handleMouseMove(e){
-		//var coords = "X coords: " + x + ", Y coords: " + y;
-		//document.getElementById("demo").innerHTML = coords;
 		if(isDragging){
-	  
-		//var x = event.clientX;
-		//var y = event.clientY;
 		var rect = canvas.getBoundingClientRect();
-		
-	
-		//var canvasOffset=$("#myCanvas").offset();
-		//var offsetX=canvasOffset.left;
-		//var offsetY=canvasOffset.top;
-		//var x = parseInt(e.clientX-offsetX);
-		//var x = parseInt(e.clientX-rect.left);
-		//var y = parseInt(e.clientY-rect.top);
-		//var y = parseInt(e.clientY-offsetY);
 		var x = ((1100*(e.clientX-rect.left))/(rect.right-rect.left));
-		var y = ((400*(e.clientY-rect.top))/(rect.bottom-rect.top));
+		var y = ((canvas.height*(e.clientY-rect.top))/(rect.bottom-rect.top));//400
 		
-		//var rrr=document.getElementById('myCanvas').height;
-		//document.getElementById("rr").innerHTML=x+" "+y +" ol"+offsetX+"ot"+offsetY +" cx"+e.clientX+" cy"+e.clientY;
 		if((x>450 && x<650)&&(y<canvas.height && y>canvas.height-100))
 				{
 				if(x<550)angleInDegrees=90+(Math.atan((y-canvas.height)/(x-550)))/(Math.PI/180);
@@ -293,8 +275,6 @@ function case1()
 				ctx.translate(550  ,sh ,10,50);
 				ctx.rotate(degrees*Math.PI/180);
 				ctx.drawImage(image,-image.width/2 ,-image.height/2 ,10,50);
-				//ctx.moveTo(750,400);
-				//ctx.bezierCurveTo(750,sh,550+(r_deg*Math.cos((Math.PI*cdeg)/360)),sh-(r_deg*Math.sin((Math.PI*cdeg)/360)),550+(r_deg*Math.cos((Math.PI*cdeg)/180)),sh-(r_deg*Math.sin((Math.PI*cdeg)/180)))
 				ctx.restore();	
 				context.beginPath();
 				
@@ -312,7 +292,7 @@ function case1()
 				context.fill();
 				
 				context.beginPath();
-				context.moveTo(600,canvas.height);///if curve not correct set y=400
+				context.moveTo(600,canvas.height);
 				var angl=document.getElementById("deg").value;
 				context.bezierCurveTo(600,canvas.height,550+(50*Math.cos((Math.PI*(angl))/360)),canvas.height-(50)*Math.sin((Math.PI*(angl))/360),550+(50*Math.cos((Math.PI*(angl))/180)),canvas.height-(50)*Math.sin((Math.PI*(angl))/180));
 				context.stroke();
@@ -345,23 +325,15 @@ function case1()
 				var vo1=(vo*Math.sin(Math.PI*deg/180));
 				
 				var vo2=(vo*Math.cos(Math.PI*deg/180));
-	//alert(vo+" "+deg+" "+vr+" "+wr);
 				if(rvo==1)
 				{
 				
 				rvog=(Math.sqrt((vo1*vo1)+((vr+vo2)*(vr+vo2)))).toFixed(4);
 				edeg=Math.round(((Math.atan((vo1)/(vr+vo2)))/(Math.PI/180)));
 				cdeg=edeg;
-				//alert(edeg);
-				//alert(vo1+" "+vo2);
 				ct=(wr/(vo*Math.sin(Math.PI*deg/180))).toFixed(4);
-				//dd=Math.round((wr/(vo*Math.sin(Math.PI*deg/180)))*(vr+vo*Math.cos(Math.PI*deg/180)));
-				//alert(vo2+" "+vr);
 				var t= vr;
 				dd=(ct*(vo2+t)).toFixed(4);
-				//alert(ct+"\n"+dd);
-				//alert(t);
-				//document.getElementById("data").innerHTML=a+" "+b+" "+c+" "+d;
 				
 				
 				tvo1=vo1;
@@ -378,39 +350,43 @@ function case1()
 				tvo1=vo1;
 				tvo2=vo2;
 				
-				//alert(rvor+" "+edeg+" "+" "+ct+" "+dd);
 				}
 				
-				var tmpmax=Math.max(Math.abs(tvo1),Math.abs(tvo2));
-				while(tmpmax>10)
+				/*var tmpmax=Math.max(Math.abs(tvo1),Math.abs(tvo2));
+				while(tmpmax>=5)
 					{
-						tvo1=tvo1/10;
-						tvo2=tvo2/10;
-						tmpmax=tmpmax/10;
-					}
-				
-				/*
-				if(tvo1>tvo2)
-				{
-					while(tvo1>5)
-					{
-						tvo1=tvo1/10;
-						tvo2=tvo2/10;
+						tvo1=tvo1/10.0;
+						tvo2=tvo2/10.0;
+						tmpmax=tmpmax/10.0;
 					}
 					
-				}
-			else{
-					while(tvo2>5)
-					{
-					tvo1=tvo1/10;
-					tvo2=tvo2/10;
-					}
-				}
 				*/
+				
+				
+			chng();
+			//c=(1000*wr)/(ct*Math.min(tvo1,tvo2)*(canvas.height));
+			//c=(1000*ct)/(wr);
+			var tmpabs=Math.abs(Math.max(tvo1,tvo2));
+			//c=(1000*ct*sh)/(wr);
+			c=(wr*1000)/((canvas.height)*tmpabs);
+			//tvo1=(((canvas.height)*tvo1*c)/(wr*1000));
+			//tvo2=(((canvas.height)*tvo2*c)/(wr*1000));
+			tvo1=tvo1/tmpabs;
+			tvo2=tvo2/tmpabs;
+			//alert(c);
+			//c2=(dist)*1000/(pix*Math.min(b1v,b2v));
+			//alert(pix+" "+c2);
+			//tvb1e=((pix*tvb1e*c2)/(dist*1000));
+			//tvb1n=((pix*tvb1n*c2)/(dist*1000));
+			//tvb2e=((pix*tvb2e*c2)/(dist*1000));
+			//tvb2n=((pix*tvb2n*c2)/(dist*1000));
+			/*
+			c=(ct*1000)/(canvas.height);
+			tvo1=(tvo1*c)/(1000);
+			tvo2=(tvo2*c)/(1000);
+			*/
 	
-			c=(1000*ct*tvo1)/(wr);
-	
-			chng();cl();reset();showdata();move();arrow();ruler();
+			cl();reset();showdata();move();arrow();ruler();
 	
 	}
 
@@ -442,7 +418,6 @@ function case1()
 			//animate 
 			
 			this.move=function(){
-			//drawObject(ob,context,'#d0dee0');//clear object
 			drawObject(ob,context,'#00ccff');
 			ob.X=ob.X+tvo2;
 			ob.Y=ob.Y-tvo1;
@@ -610,12 +585,13 @@ function case1()
 				if(((edeg1)>10.3 && (edeg1)<36.02732) || ((edeg1)>(180-36.02732) && (edeg1)<(180-10.3)))
 				{
 					document.getElementById('myCanvas').height =100;
-					c=(wr*c)/100;
+					//c=(wr*c)/100;
 					sh=100;
+					
 				}else
 				{
 					document.getElementById('myCanvas').height =400;
-					c=(wr*c)/400;
+					//c=(wr*c)/400;
 					sh=400;
 				}
 		}
@@ -709,11 +685,6 @@ function case1()
 		};
 		
 		
-		
-		
-		//alert(b1.X+" "+b1.Y);
-		//alert(b2.X+" "+b2.Y);
-		
 		this.drawObject=function(ob,context,col)
 			{
 			context.beginPath();
@@ -730,14 +701,7 @@ function case1()
 			
 			context.fillStyle = col;//'#ff0000'
 			context.fill();
-			//context.clearRect(ob.X-30,ob.Y-10,20,10);
-			//context.font = "15px Arial";
-			//context.strokeText("ob"+ob.N,ob.X-30,ob.Y);
 			
-			//context.restore();
-					//context.save();
-					
-					
 					
 					if(ob.N=="1" || ob.N=="2")
 					{
@@ -811,12 +775,7 @@ function case1()
 			
 				function handleMouseMove(e){
 				if(isDragging  && (bb.N=="1" || bb.N=="2")){
-				//&& (state==1)
 				var rect = canvas.getBoundingClientRect();
-		  
-				//var xc = parseInt(e.clientX-rect.left);
-				//var yc = parseInt(e.clientY-rect.top);
-				
 				var xc = ((1100*(e.clientX-rect.left))/(rect.right-rect.left));
 				var yc = ((400*(e.clientY-rect.top))/(rect.bottom-rect.top));
 				
@@ -845,12 +804,7 @@ function case1()
 				var tempangl=bb.A;
 				if(tempangl>=180 )tempangl=tempangl-180;
 				else tempangl=180+tempangl;
-				//drawObject(b1,context,'#ff0000');
-				//drawObject(b2,context,'#ff0000');
 				drawRotated(bb.A,bb);
-				
-				//context.font = "15px Arial";
-				//context.strokeText(Math.round(tempangl),bb.X,bb.Y);
 				if(bb.N=="1")
 				{
 					
@@ -907,15 +861,10 @@ function case1()
 					
 
 	
-			//drawObject(b1,context,'#ff0000');
-			//drawObject(b2,context,'#ff0000');
-			//alert(b1.X);
-			
 			arrow(b2.A,b2);
 			arrow(b1.A,b1);
 			northarrow();
-			//cval.arrow(b2);
-
+			
 			this.caldata=function() //to cal for case 2
 			{
 			
@@ -925,7 +874,6 @@ function case1()
 			b2deg=parseFloat(document.getElementById("b2deg").value);
 			dist=parseFloat(document.getElementById("dist").value);
 			distdeg=parseFloat(document.getElementById("distdeg").value);
-			//alert("alert1"+b1v+" a"+b1deg+" "+b2v+" a"+b2deg+" "+dist+" a"+distdeg);
 			
 			
 			var vn1=(b1v*Math.cos((Math.PI*b1deg)/180)).toFixed(3);//boat 1 north
@@ -939,23 +887,16 @@ function case1()
 			tvb2n=vn2;
 			tvb2e=ve2;
 			
-			//alert("alert2 "+vn1+" "+ve1+" "+vn2+" "+ve2);
-			//b1rv=(Math.sqrt((vn1+vn2)*(vn1+vn2)+(ve1+ve2)*(ve1+ve2))).toFixed(4);
 			b2rv=(Math.sqrt((vn2-vn1)*(vn2-vn1)+(ve2-ve1)*(ve2-ve1))).toFixed(4);
 			
-			
-			
 			 tdeg=Math.round((Math.atan((ve2-ve1)/(vn2-vn1)))/(Math.PI/180));
-			//alert(" alet1 "+tdeg);
-			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;//
-			else if((vn2-vn1)==0 && (ve2-ve1)<0){tdeg=270;/*alert(" nn1");*/}
-			else if((ve2-ve1)==0 && (vn2-vn1)<0){tdeg=180;/*alert(" nn2");*/}
-			else if((vn2-vn1)<0 ){tdeg=180+tdeg;/*alert(" nn3");*/}
-			else if((ve2-ve1)<0){tdeg=360+tdeg;/*alert(" nn4");*/}
 			
-			//alert(" alet1 "+tdeg);
-			//alert(" alet2 "+distdeg);
-			//alert(" alet3 "+Math.abs(b1deg-tdeg));
+			if((ve2-ve1)==0 && (vn2-vn1)==0) tdeg=distdeg;
+			else if((vn2-vn1)==0 && (ve2-ve1)<0){tdeg=270;}
+			else if((ve2-ve1)==0 && (vn2-vn1)<0){tdeg=180;}
+			else if((vn2-vn1)<0 ){tdeg=180+tdeg;}
+			else if((ve2-ve1)<0){tdeg=360+tdeg;}
+			
 			if(Math.round(b2rv)==0){type="N";}
 			else
 			{
@@ -965,7 +906,6 @@ function case1()
 				type="M";
 				bd1=(dist/b2rv)*b1v;
 				bd2=(dist/b2rv)*b2v;
-				//alert("meet"+time+"d1 "+bd1+"d2 "+bd2+" "+b2rv);
 				}
 				else
 				{
@@ -976,10 +916,8 @@ function case1()
 							if(tdeg<=90+distdeg)
 							{
 							type="N";
-							//alert("no short1");
 							}
 							else{
-							//alert("short 1");
 							type="S";
 							}
 						}
@@ -988,10 +926,8 @@ function case1()
 							if(tdeg>=270+distdeg)
 							{
 							type="N";
-							//alert("no short2");
 							}
 							else{
-							//alert("short 2");
 							type="S";
 							}
 						}
@@ -1005,10 +941,8 @@ function case1()
 							if((tdeg>=distdeg-90) &&(tdeg<=180))
 							{
 							type="N";
-							//alert("no short3");
 							}
 							else{
-							//alert("short 3");
 							type="S";
 							}
 						}
@@ -1017,10 +951,8 @@ function case1()
 							if(tdeg<=90+distdeg)
 							{
 							type="N";
-							//alert("no short4");
 							}
 							else{
-							//alert("short 4");
 							type="S";
 							}
 						}
@@ -1033,10 +965,8 @@ function case1()
 							if((tdeg<=distdeg-270) )
 							{
 							type="N";
-							//alert("no short5");
 							}
 							else{
-							//alert("short 5");
 							type="S";
 							}
 						}
@@ -1045,10 +975,8 @@ function case1()
 							if(tdeg>=distdeg-90)
 							{
 							type="N";
-							//alert("no short6");
 							}
 							else{
-							//alert("short 6");
 							type="S";
 							}
 						}
@@ -1059,51 +987,20 @@ function case1()
 					reldist2=dist*Math.abs(Math.cos(Math.PI*(distdeg-tdeg+180)/180));
 					
 					
-					//alert(bd2+" "+bd1);
 					time=(reldist2/b2rv).toFixed(3);
 					bd1=b1v*time;
 					bd2=b2v*time;
-					//alert("shortest"+time+"d1 "+bd1+"d2 "+bd2+" "+reldist1);
 					
 					shortd=reldist1;
 							}
 					
-					/*if((distdeg<=90 && ((tdeg <=90+distdeg))) || (distdeg<=90 &&(tdeg=>270+distdeg)))
-					{
-					type="N1";
-					alert("ns1");
-					}
-					else if(distdeg<=270 && ((tdeg <90+distdeg) &&(tdeg>distdeg-90)))
-					{
-					type="N2";
-					}
-					else if(distdeg<360 && ((tdeg <distdeg-270) ||(tdeg>distdeg-90)))
-					{
-					type="N3";
-					}
-					else
-					{
-					type="S";
-					alert("S");
-					}*/
+					
 					
 					
 				}
 				
 			}
-			//alert(type);
 			
-			//alert(Math.atan(1/0)/(Math.PI/180));
-			
-			//alert(tdeg);
-			
-			//context.clearRect(0,0,canvas.width,canvas.height);
-			//alert(distdeg);
-			//b2.X=b1.X+dist*Math.sin((Math.PI*distdeg)/180);
-			//b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);
-			//alert(b2.X+" "+b2.Y+" "+b1.X+" "+b1.Y);
-			//arrow(angleInDegrees3,b2);
-			//arrow(angleInDegrees2,b1);
 			taketostart();
 			setvariables();
 			
@@ -1113,28 +1010,20 @@ function case1()
 			
 			this.setvariables=function()
 			{
-			//alert("d1  "+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
 			var m=Math.abs(tvb1n);
-			//alert("max1 "+m);
 			if(m<Math.abs(tvb1e)){m=Math.abs(tvb1e);}
 			if(m<Math.abs(tvb2n)){m=Math.abs(tvb2n);}
 			if(m<Math.abs(tvb2e)){m=Math.abs(tvb2e);}
 			
-			//alert("max2 "+m);
-			while(m>5)
+			/*while(m>5)
 			{
 				m=m/10.0;
 				tvb1n=tvb1n/10.0;
 				tvb1e=tvb1e/10.0;
 				tvb2n=tvb2n/10.0;
 				tvb2e=tvb2e/10.0;
-			}
-			//alert("d"+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
-			//alert("max"+m);
-			//drawObject(b2,context,'#00ccff');
-			//drawObject(b1,context,'#00ccff');
+			}*/
 			
-			//move2();
 			}
 			
 			
@@ -1143,11 +1032,6 @@ function case1()
 			{
 			context.clearRect(0,0,canvas.width,canvas.height);
 			northarrow();
-			/*b1.X=x1;
-			b1.Y=y1;
-			//context.clearRect(0,0,canvas.width,canvas.height);
-			b2.X=b1.X+dist*Math.sin((Math.PI*distdeg)/180);
-			b2.Y=b1.Y-dist*Math.cos((Math.PI*distdeg)/180);*/
 			
 			if(type=="N")
 			{
@@ -1160,16 +1044,9 @@ function case1()
 				b6.X=550+50*Math.sin(Math.PI*(distdeg)/180);
 				b6.Y=200-50*Math.cos(Math.PI*(distdeg)/180);
 				
-						//arrow(b1.A,b1);
-						//arrow(b2.A,b2);
 						chngarrow1();
 						chngarrow2();
-				//drawObject(b1,context,b1.C);
-				//drawObject(b2,context,b2.C);
-				//alert("type "+b1.X+" "+b1.Y+" "+b2.X+" "+b2.Y);
-			//drawObject(b1,context,b1.C);
-			//drawObject(b2,context,b2.C);
-			}
+				}
 			else
 			{
 			
@@ -1188,37 +1065,12 @@ function case1()
 			var x04=x01+bd1*Math.sin(Math.PI*(b1deg)/180);
 			var y04=y01-bd1*Math.cos(Math.PI*(b1deg)/180);
 			
-			/*var xmin=x01;
-			var xmax=x01;
-			var ymin=y01;
-			var ymax=y01;
 			
-				
-			
-				if(xmin>x02){xmin=x02;}
-				if(xmin>x03){xmin=x03;}
-				if(xmin>x04){xmin=x04;}
-				
-				if(ymin>y02){ymin=y02;}
-				if(ymin>y03){ymin=y03;}
-				if(ymin>y04){ymin=y04;}
-				
-				if(xmax<x02){xmax=x02;}
-				if(xmax<x03){xmax=x03;}
-				if(xmax<x04){xmax=x04;}
-				
-				if(ymax<y02){ymax=y02;}
-				if(ymax<y03){ymax=y03;}
-				if(ymax<y04){ymax=y04;}
-				*/
-				
 			var xmin=Math.min(x01,x02,x03,x04);
 			var xmax=Math.max(x01,x02,x03,x04);
 			var ymin=Math.min(y01,y02,y03,y04);
 			var ymax=Math.max(y01,y02,y03,y04);
 				
-				//alert("done"+x01+" "+x02+" "+x03+" "+x04+" m"+xmax+" "+xmin);
-				//alert("done"+y01+" "+y02+" "+y03+" "+y04+" m"+ymax+" "+ymin);
 				if(((Math.abs(xmax-xmin)/1050)<=dist/pix) &&((Math.abs(ymax-ymin)/350)<=dist/pix))
 				{
 					while(((Math.abs(xmax-xmin)/1050)<=dist/pix) &&((Math.abs(ymax-ymin)/350)<=dist/pix))
@@ -1227,7 +1079,6 @@ function case1()
 						
 					}
 					pix=pix-100;
-					//alert("scaled");
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1256,12 +1107,8 @@ function case1()
 						b6.Y=y02;
 						chngarrow1();
 						chngarrow2();
-						//arrow(b1.A,b1);
-						//arrow(b2.A,b2);
-					//drawObject(b1,context,b1.C);
-					//drawObject(b2,context,b2.C);
-					drawObject(b3,context,b2.C);
-					drawObject(b4,context,b1.C);
+						drawObject(b3,context,b2.C);
+						drawObject(b4,context,b1.C);
 					
 					
 				}
@@ -1269,7 +1116,7 @@ function case1()
 				{
 				
 				
-					//alert("not scaled");
+					
 					x02=x02*pix/dist; y02=y02*pix/dist;
 					x01=x01*pix/dist; y01=y01*pix/dist;
 					x03=x03*pix/dist; y03=y03*pix/dist;
@@ -1319,12 +1166,8 @@ function case1()
 						b6.X=x02;
 						b6.Y=y02;
 						
-						//arrow(b1.A,b1);
-						//arrow(b2.A,b2);
 						chngarrow1();
 						chngarrow2();
-					//drawObject(b1,context,b1.C);
-					//drawObject(b2,context,b2.C);
 					drawObject(b3,context,b2.C);
 					drawObject(b4,context,b1.C);
 					
@@ -1334,22 +1177,20 @@ function case1()
 				
 				
 			}
-			
-			//context.strokeText("a",b1.X,b1.Y);
-			//context.strokeText("a",b2.X,b2.Y);
-			
-			
+			//c2=0;
+			c2=(dist)*1000/(pix*Math.min(b1v,b2v));
+			//alert(pix+" "+c2);
+			tvb1e=((pix*tvb1e*c2)/(dist*1000));
+			tvb1n=((pix*tvb1n*c2)/(dist*1000));
+			tvb2e=((pix*tvb2e*c2)/(dist*1000));
+			tvb2n=((pix*tvb2n*c2)/(dist*1000));
 			}
-	//caldata();
+	
 	
 	
 		this.move2=function(){
-			//state=2;
-			//drawObject(b1,context,'#d0dee0');//clear object
-			//drawObject(b2,context,'#d0dee0');//clear object
 			drawObject(b5,context,'#00ccff');
 			drawObject(b6,context,'#00ccff');
-			//alert("data"+tvb1n+" "+tvb2n+" "+tvb1e+" "+tvb2e);
 			b5.X=b5.X+(tvb1e);
 			b5.Y=b5.Y-(tvb1n);
 			
@@ -1359,27 +1200,23 @@ function case1()
 			
 			drawObject(b5,context,b5.C);
 			drawObject(b6,context,b6.C);
-		
+				//alert(c2);
 			//if object reach to corners stop object
 			
 			if(b5.X>=1085 || b5.Y<=15 ||b5.Y >390||b5.X<=10 || b6.X>=1085 || b6.Y<=15 || b6.X<=10 || b6.Y>390)
 			{stop2();return;}
-		//	alert("in");
+		
 			
-			animate = setTimeout(move2,10); // call movein 
+			animate = setTimeout(move2,c2); // call movein 
 			}
 			
 		//stop animation		
 			this.stop2=function(){
 			clearTimeout(animate);
-			//state=1;
 			arrow(angleInDegrees2,b1);
 			arrow(angleInDegrees3,b2);
-			//chngarrow1();
-			//chngarrow2();
 			drawtextdata();
 			animateshow2();
-			//taketostart();
 			
 			}
 			
@@ -1503,19 +1340,14 @@ function case1()
 			this.animateshow2=function()
 			{
 			document.getElementById("showanimatebtn").innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a><img src="images/gobtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="caldata();move2();drawtextdata();animateshowdim2();" ></a>';
-			//document.getElementById("showdatabutton").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="caldata();drawtextdata();" style="background-image: url(\'images/button3.jpg\')"  >Result</button></a>';
-			//style="background-image: url(\'images/gobtn.png\')"  caldata();drawtextdata();
 			}
 			this.animateshowdim2=function()
 			{
 			document.getElementById("showanimatebtn").innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a><img src="images/stopbtn.png" width="75" height="64" class="btn btn-succes"  data-toggle="modal"  onclick="stop2();animateshow2();" ></a>';
-			//document.getElementById("showdatabutton").innerHTML='<a><button class="btn btn-success" data-toggle="modal" onclick="caldata();drawtextdata();" style="background-image: url(\'images/button3.jpg\')"  >Result</button></a>';
-			//style="background-image: url(\'images/gobtn.png\')"  caldata();drawtextdata();
 			}
 			this.animatehide=function()
 			{
 			document.getElementById("showanimatebtn").innerHTML="";
-			//document.getElementById("showdatabutton").innerHTML="";
 			}
 			this.rotationaroundone=function()
 			{
@@ -1554,8 +1386,6 @@ function case1()
 			else angleInDegrees2=angleInDegrees2+180;
 			arrow(angleInDegrees2,b1);
 			}
-			//context.font = "15px Arial";
-			//context.strokeText(""+document.getElementById("b1deg").value,b1.X+50,b1.Y);
 			}
 		
 			this.chngarrow2=function()
@@ -1568,8 +1398,6 @@ function case1()
 			else angleInDegrees3=angleInDegrees3+180;
 			arrow(angleInDegrees3,b2);
 			}
-			//context.font = "15px Arial";
-			//context.strokeText(1000,b2.X+40,b2.Y);
 			}
 
 	}
@@ -1740,22 +1568,40 @@ function case1()
                        CLOSE
                 </button>
                 <h4 class="modal-title">
-                    INSTRUCTION
+                    INSTRUCTIONS
                 </h4>
             </div>
             <div class="modal-body">
                 <h4>What is actually happenning! </h4>
+				<h4>In this relative velocity project, we have used two cases. one is the movement of a single object and the other is movements of two separate objects.
+In here, the movement for a single object is identified as "Object 01" and movements for two objects as "Object 02"</h4><br><br>
                 <form   id="form" method="post" name="form"  onsubmit="return false;">
 				 <center>
 				  <div class="form-group">
 				  
 					<h2> for object 1 simulation</h2><br>
-					<h4>swap to object 2 simulation click "switch" button</h4><br>
-                    <img src="images/c1.png" width="500" height="500"><br><br>
+					<h4>This is the interface for the object one.</h4><br>
+					
+                    <img src="images/c1.png" class="img-responsive" width="500" height="500"><br><br>
+					<ul> 
+					<li><h4>By clicking the "SWITCH" button which is numbered as No:1 you can be shifted easily into object 2.</h4> </li><br> 
+					<li><h4>By clicking the "Insert Data" button which is numbered as No:2  is used for inserting data</h4></li><br> 
+					<li><h4>By clicking the "Instruction" button which is numbered as No:1 is used for usage guidance.<h4></li><br></ul>
 					
 					<h2> for object 2 simulation</h2><br>
-					<img src="images/c4.png" width="500" height="500"></center>
+					<h4>This is the interface for Object two.<br></h4>
+					<img src="images/c4.png" class="img-responsive" width="500" height="500"></center>
+					<ul> 
+					<li><h4>By clicking the "SWITCH" button which is numbered as No:1 you can be shifted easily into object 1.</h4> </li><br> 
+					<li><h4>By clicking the "Insert Data" button which is numbered as No:2 ,
+							is used for inserting data
+						</h4>
+					</li>
+						<br> 
+					<li><h4>By clicking the "Instruction" button which is numbered as No:1 is used for usage guidance.</h4></li><br>
 					
+					</ul>
+
 				  </div><br><br>
                   
 				  
@@ -1763,10 +1609,16 @@ function case1()
 				  <div class="form-group">
 				  
 					<center> <label for="ob1" > <font size="6" color="blue"> Initial Page </font></label><br>
-                    <img src="images/c2.png" width="500" height="500"></center><br>
+                    <img src="images/c2.png" class="img-responsive" width="500" height="500"></center><br>
 					
 					<label for="ob1" > <font size="5" color="red"> Insert Data </font></label><br>
-					
+					<ul>
+					<li><h4>By clicking the "Insert Data" button we can get this fill form to insert data.</h4></li><br>
+					<li><h4>We can insert the degree by either filling the No.1 blank "Counter clockwise degree from the river edge" or by simply adjusting the button "A" with the mouse.
+							click confirm after inserting all the data respectively.
+						</h4>
+						</li>
+					</ul>
 					 </div><br><br>
 				  
 				   
@@ -1776,8 +1628,14 @@ function case1()
 					<center> 
 					<label for="ob1" > <font size="6" color="blue"> Object Movement </font></label><br><br>
 					
-					<img src="images/c3.png" width="500" height="500"><br><br>
-					
+					<img src="images/c3.png" class="img-responsive" width="500" height="500"><br><br>
+					<ul>
+					<li><h4>After confirming the data form, to see the object movement, click "START".
+						The object movement and the answers for all the calculations will be displayed
+						afterwards.
+						</h4>
+					</li>
+					</ul>
 					</center>
                   </div><br><br>
                   
@@ -1788,10 +1646,11 @@ function case1()
 				  <div class="form-group">
 				  
 					<center> <label for="ob1" > <font size="6" color="blue"> Initial Page </font></label><br>
-                    <img src="images/c5.png" width="500" height="500"></center><br>
+                    <img src="images/c5.png" class="img-responsive" width="500" height="500"></center><br>
 					
 					<label for="ob1" > <font size="5" color="red"> Insert Data </font></label><br>
-					
+					<ul><li><h4> As in object 1 fill the data for object 2
+					</h4></li><br></ul>
 					 </div><br><br>
 				  
 				   
@@ -1801,9 +1660,14 @@ function case1()
 					<center> 
 					<label for="ob1" > <font size="6" color="blue"> Object Movement </font></label><br><br>
 					
-					<img src="images/c6.png" width="500" height="500"><br><br>
+					<img src="images/c6.png" class="img-responsive" width="500" height="500"><br><br>
 					
 					</center>
+					<ul>
+					<li><h4>After filling and confirming the data respectively, the movement of the two objects can be seen.</h4></li></br> 
+					<li><h4>For that clicking the "START" button is necessary.</h4></li><br>
+					<li><h4>After clicking the "START" button you can see the answers for the movements of the both objects, whether they are supposed to meet each other or not, and if they are supposed to meet each other what will be the distance and how long that it will be taken to .The answers for all the calculations will be displayed afterwards.</h4></li><br>
+					</ul>
                   </div><br><br>
 				  
 				  
