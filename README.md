@@ -14,7 +14,7 @@ we used jquery,bootstrap, html,css and javascript.
 This can use online or download the relative velocity folder and run the index.html file on your browser.
 Click on the instruction button to know how to give data for simulation.
 
-<h4><a href="http://nalakasenarathna.github.io/relativevelocity/Relative%20velocity/index.html">Start Simulation Here</a> </h4>
+<h4><a href="http://nalakas.github.io/relativevelocity/Relative%20velocity/index.html">Start Simulation Here</a> </h4>
 
 
 
